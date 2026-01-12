@@ -1,98 +1,169 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# TikTok Shop Partner Backend
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+基于NestJS的TikTok Shop API完整后端实现，支持店铺授权、产品管理、订单管理等核心功能。
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## 功能特性
 
-## Description
+- ✅ **店铺授权** - 完整的OAuth 2.0流程，自动Token刷新
+- ✅ **店铺管理** - 获取店铺信息、权限管理
+- ✅ **产品管理** - 产品CRUD、库存管理、价格管理、分类品牌查询
+- ✅ **订单管理** - 订单查询、状态筛选、时间范围查询
+- 🔒 **安全性** - HMAC-SHA256签名、Token自动管理
+- 📦 **模块化设计** - 清晰的代码结构，易于扩展
+- 🎯 **TypeScript** - 完整的类型定义和类型安全
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## 项目结构
 
-## Project setup
-
-```bash
-$ pnpm install
+```
+tiktok-partner-backend/
+├── src/
+│   ├── config/                      # 配置文件
+│   │   ├── tiktok.config.ts         # TikTok配置
+│   │   └── tiktok-client.provider.ts # SDK客户端提供者
+│   │
+│   ├── modules/                      # 业务模块
+│   │   ├── auth/                     # 授权模块
+│   │   ├── shop/                     # 店铺管理模块
+│   │   ├── product/                  # 产品管理模块
+│   │   └── order/                    # 订单管理模块
+│   │
+│   ├── types/                        # TypeScript类型定义
+│   │   └── tiktok.types.ts
+│   │
+│   ├── app.module.ts                 # 根模块
+│   └── main.ts                       # 应用入口
+│
+├── sdk/                              # TikTok Shop Node.js SDK
+│   ├── api/                          # API定义（41个API文件）
+│   ├── model/                        # 数据模型（1156个模型）
+│   └── client/                       # 客户端实现
+│
+├── .env.example                      # 环境变量示例
+├── API_DOCUMENTATION.md              # 完整API文档
+├── USAGE_EXAMPLES.md                 # 使用示例
+└── README.md                         # 本文件
 ```
 
-## Compile and run the project
+## 快速开始
+
+### 1. 环境要求
+
+- Node.js 16+
+- pnpm (推荐) / yarn / npm
+
+### 2. 安装依赖
 
 ```bash
-# development
-$ pnpm run start
-
-# watch mode
-$ pnpm run start:dev
-
-# production mode
-$ pnpm run start:prod
+pnpm install
 ```
 
-## Run tests
+### 3. 配置环境变量
+
+复制 `.env.example` 为 `.env` 并填写配置：
+
+```env
+# TikTok Shop API Configuration
+TIKTOK_APP_KEY=your_app_key_here
+TIKTOK_APP_SECRET=your_app_secret_here
+TIKTOK_SERVICE_ID=your_service_id_here
+TIKTOK_SANDBOX=false
+
+# Proxy Configuration (代理配置，用于访问TikTok API)
+USE_PROXY=true              # 是否启用代理（默认true）
+PROXY_HOST=127.0.0.1        # 代理服务器地址
+PROXY_PORT=20122            # 代理服务器端口
+
+# Server Configuration
+PORT=3000
+NODE_ENV=development
+```
+
+**代理说明：**
+- 如果需要通过代理访问 TikTok API（例如在中国大陆），保持 `USE_PROXY=true`
+- 代理默认配置为 `http://127.0.0.1:20122`，可根据实际情况修改
+- 如果不需要代理，设置 `USE_PROXY=false`
+
+### 4. 启动服务
 
 ```bash
-# unit tests
-$ pnpm run test
+# 开发模式
+pnpm run start:dev
 
-# e2e tests
-$ pnpm run test:e2e
-
-# test coverage
-$ pnpm run test:cov
+# 生产模式
+pnpm run build
+pnpm run start:prod
 ```
 
-## Deployment
+服务将在 `http://localhost:3000` 启动
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
+## API概览
 
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+### 授权模块
+- `GET /auth/authorization-url` - 获取授权链接
+- `GET /auth/callback` - OAuth回调处理
+- `POST /auth/refresh` - 刷新Access Token
+
+### 店铺管理
+- `GET /shops/authorized` - 获取已授权店铺列表
+- `GET /shops/details` - 获取店铺详细信息
+- `GET /shops/permissions` - 获取店铺权限
+
+### 产品管理
+- `POST /products/search` - 搜索产品
+- `POST /products` - 创建产品
+- `POST /products/activate` - 激活产品（上架）
+- `POST /products/:productId/inventory` - 更新库存
+- `POST /products/:productId/price` - 更新价格
+
+### 订单管理
+- `POST /orders/search` - 搜索订单
+- `GET /orders/:orderId` - 获取订单详情
+- `GET /orders/status/pending-shipment` - 获取待发货订单
+
+完整API文档请查看 [API_DOCUMENTATION.md](./API_DOCUMENTATION.md)
+
+## 使用示例
+
+### OAuth授权流程
+
+```typescript
+// 1. 获取授权链接
+const response = await fetch('http://localhost:3000/auth/authorization-url');
+const data = await response.json();
+
+// 2. 用户授权后获取Token
+const tokenResponse = await fetch(`http://localhost:3000/auth/callback?code=${code}`);
+const tokenData = await tokenResponse.json();
+```
+
+更多示例请查看 [USAGE_EXAMPLES.md](./USAGE_EXAMPLES.md)
+
+## 测试
 
 ```bash
-$ pnpm install -g @nestjs/mau
-$ mau deploy
+# 单元测试
+pnpm run test
+
+# e2e测试
+pnpm run test:e2e
+
+# 测试覆盖率
+pnpm run test:cov
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+## 技术栈
 
-## Resources
+- **框架**: NestJS 11.x
+- **语言**: TypeScript 5.x
+- **SDK**: TikTok Shop Node.js SDK
+- **HTTP客户端**: Request 2.88.x
 
-Check out a few resources that may come in handy when working with NestJS:
+## 文档
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+- 📘 [API完整文档](./API_DOCUMENTATION.md) - 所有API的详细说明
+- 📗 [使用示例](./USAGE_EXAMPLES.md) - 实际业务场景的完整代码示例
+- 📙 [TikTok Shop官方文档](https://partner.tiktokshop.com/docv2)
 
 ## License
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+MIT Licensed

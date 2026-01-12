@@ -4,6 +4,11 @@ import { generateSign } from "../utils/generate-sign";
 import { TikTokShopNodeApiClient } from "./client";
 import { ClientConfiguration } from "./config";
 
+// 代理配置
+const PROXY_HOST = process.env.PROXY_HOST || "127.0.0.1";
+const PROXY_PORT = process.env.PROXY_PORT || "20122";
+const USE_PROXY = process.env.USE_PROXY !== "false"; // 默认启用代理，设置为 "false" 才禁用
+
 export const createTransRequestOptionsInterceptor =
   (client: TikTokShopNodeApiClient): Interceptor =>
   async (option: localVarRequest.Options) => {
@@ -20,6 +25,11 @@ export const createTransRequestOptionsInterceptor =
     }
     if (!app_secret) {
       throw new Error("app_secret is required");
+    }
+
+    // 添加代理配置
+    if (USE_PROXY) {
+      option.proxy = `http://${PROXY_HOST}:${PROXY_PORT}`;
     }
 
     option.qs = {

@@ -8,6 +8,18 @@ const get_access_token_path = "/api/v2/token/get";
 
 const grant_type = "authorized_code";
 
+// 代理配置
+const PROXY_HOST = process.env.PROXY_HOST || "127.0.0.1";
+const PROXY_PORT = process.env.PROXY_PORT || "20122";
+const USE_PROXY = process.env.USE_PROXY !== "false"; // 默认启用代理，设置为 "false" 才禁用
+
+// 打印代理配置信息（仅在启动时）
+if (USE_PROXY) {
+  console.log(`[TikTok SDK] Using proxy: http://${PROXY_HOST}:${PROXY_PORT}`);
+} else {
+  console.log("[TikTok SDK] Proxy disabled, connecting directly");
+}
+
 export type AccessTokenProps = {
   access_token: string;
   refresh_token?: string;
@@ -118,6 +130,8 @@ class AccessToken {
       url: path,
       qs,
       useQuerystring: true,
+      json: true,
+      ...(USE_PROXY && { proxy: `http://${PROXY_HOST}:${PROXY_PORT}` }),
     };
     return new Promise<{
       response: localVarRequest.Response;
@@ -178,6 +192,8 @@ class AccessToken {
       url: path,
       qs,
       useQuerystring: true,
+      json: true,
+      ...(USE_PROXY && { proxy: `http://${PROXY_HOST}:${PROXY_PORT}` }),
     };
     return new Promise<{
       response: localVarRequest.Response;
@@ -253,6 +269,8 @@ class AccessTokenTool {
       url: path,
       qs,
       useQuerystring: true,
+      json: true,
+      ...(USE_PROXY && { proxy: `http://${PROXY_HOST}:${PROXY_PORT}` }),
     };
 
     return new Promise<{
@@ -306,6 +324,8 @@ class AccessTokenTool {
       url: path,
       qs,
       useQuerystring: true,
+      json: true,
+      ...(USE_PROXY && { proxy: `http://${PROXY_HOST}:${PROXY_PORT}` }),
     };
 
     return new Promise<{
