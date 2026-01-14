@@ -30,7 +30,7 @@ export class Product202309CreateProductRequestBody {
     */
     'categoryId'?: string;
     /**
-    * The category tree version to assign this product to. Possible values based on region: - US: `v2`, represents the 7-level category tree.   **Important**: For US shops, you must pass `v2` when using this API. - Other regions: `v1`, represents the 3-level category tree. Default: `v1`
+    * The category tree version to assign this product to. Possible values based on region: - US and SEA regions: `v2`, represents the 7-level category tree.   **Important**: For US and SEA shops, you must pass `v2` when using this API. - Other regions: `v1`, represents the 3-level category tree. Default: `v1`
     */
     'categoryVersion'?: string;
     /**

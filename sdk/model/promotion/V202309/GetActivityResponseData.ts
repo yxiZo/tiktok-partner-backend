@@ -14,6 +14,7 @@ import { RequestFile } from '../../models';
 import { Promotion202309GetActivityResponseDataDiscount } from './GetActivityResponseDataDiscount';
 import { Promotion202309GetActivityResponseDataParticipationLimit } from './GetActivityResponseDataParticipationLimit';
 import { Promotion202309GetActivityResponseDataProducts } from './GetActivityResponseDataProducts';
+import { Promotion202309GetActivityResponseDataTargetUserInfo } from './GetActivityResponseDataTargetUserInfo';
 
 export class Promotion202309GetActivityResponseData {
     /**
@@ -61,6 +62,7 @@ export class Promotion202309GetActivityResponseData {
     * Activity status. Possible values: - DRAFT: Promotion activities with this status are not available to TikTok users. - NOT_START: Promotion activities with this status are not available to TikTok users until the set activity start time. - ONGOING: Promotion activities with this status are available to TikTok users. - EXPIRED: Promotion activities with this status are not available to TikTok users because it has expired. - DEACTIVATED: The activity has been deactivated by the seller and is not available to TikTok users. - NOT_EFFECTIVE:  The activity is terminated by the platform and is not available to TikTok users.
     */
     'status'?: string;
+    'targetUserInfo'?: Promotion202309GetActivityResponseDataTargetUserInfo;
     /**
     * Activity name (50 characters max.) The name must be unique.
     */
@@ -132,6 +134,11 @@ export class Promotion202309GetActivityResponseData {
             "name": "status",
             "baseName": "status",
             "type": "string"
+        },
+        {
+            "name": "targetUserInfo",
+            "baseName": "target_user_info",
+            "type": "Promotion202309GetActivityResponseDataTargetUserInfo"
         },
         {
             "name": "title",

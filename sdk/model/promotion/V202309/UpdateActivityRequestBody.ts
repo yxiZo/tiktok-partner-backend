@@ -13,6 +13,7 @@
 import { RequestFile } from '../../models';
 import { Promotion202309UpdateActivityRequestBodyDiscount } from './UpdateActivityRequestBodyDiscount';
 import { Promotion202309UpdateActivityRequestBodyParticipationLimit } from './UpdateActivityRequestBodyParticipationLimit';
+import { Promotion202309UpdateActivityRequestBodyTargetUserInfo } from './UpdateActivityRequestBodyTargetUserInfo';
 
 export class Promotion202309UpdateActivityRequestBody {
     /**
@@ -36,6 +37,7 @@ export class Promotion202309UpdateActivityRequestBody {
     * Activity product dimension, values are: ​- PRODUCT: Promotion activity applies at the product (SPU) level. Any and all SKUs that are part of this product will be subject to the promotion. ​- VARIATION: Promotion activity only applies to specified SKUs. ​- SHOP: Promotion activity applies to all products in the shop.
     */
     'productLevel'?: string;
+    'targetUserInfo'?: Promotion202309UpdateActivityRequestBodyTargetUserInfo;
     /**
     * Activity name (50 characters max). The name must be unique.
     */
@@ -73,6 +75,11 @@ export class Promotion202309UpdateActivityRequestBody {
             "name": "productLevel",
             "baseName": "product_level",
             "type": "string"
+        },
+        {
+            "name": "targetUserInfo",
+            "baseName": "target_user_info",
+            "type": "Promotion202309UpdateActivityRequestBodyTargetUserInfo"
         },
         {
             "name": "title",

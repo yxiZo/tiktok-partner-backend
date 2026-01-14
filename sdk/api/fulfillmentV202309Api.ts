@@ -1469,7 +1469,7 @@ export class FulfillmentV202309Api {
      * @param xTtsAccessToken 
      * @param contentType Allowed type: application/json
      * @param documentSize Use this field to specify the size of the document to obtain. This parameter is only applicable to shipping labels, picking slips, and packing slips that are in the PDF format. It is not applicable for hazmat labels as these are fixed to A4.  If you specify &#x60;SHIPPING_LABEL_PICTURE&#x60; for the &#x60;document_type&#x60;, any value specified in the &#x60;document_size&#x60; will be ignored.   Possible values:  - &#x60;A6&#x60; (Default) - &#x60;A5&#x60; 
-     * @param documentFormat The format of the shipping document. Possible values:  - PDF (Default) - ZPL (Only for BR market)  **Note**: Not applicable for &#x60;SHIPPING_LABEL_PICTURE&#x60; document type.
+     * @param documentFormat The format of the shipping document. Possible values:  - PDF (Default) - ZPL (Only for BR and MX market)  **Note**: Not applicable for &#x60;SHIPPING_LABEL_PICTURE&#x60; document type.
      * @param shopCipher 
      */
     public async PackagesPackageIdShippingDocumentsGet (packageId: string, documentType: string, xTtsAccessToken: string, contentType: string, documentSize?: string, documentFormat?: string, shopCipher?: string, options: {headers: {[name: string]: string}} = {headers: {}}) : Promise<{ response: http.IncomingMessage; body: Fulfillment202309GetPackageShippingDocumentResponse;  }> {

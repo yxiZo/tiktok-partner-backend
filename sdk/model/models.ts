@@ -10,6 +10,36 @@ export * from './authorization/V202401/GetWidgetTokenResponse';
 export * from './authorization/V202401/GetWidgetTokenResponseData';
 export * from './authorization/V202401/GetWidgetTokenResponseDataWidgetToken';
 export * from './authorization/V202403/DeauthorizeShopResponse';
+export * from './customerService/V202309/CreateConversationRequestBody';
+export * from './customerService/V202309/CreateConversationResponse';
+export * from './customerService/V202309/CreateConversationResponseData';
+export * from './customerService/V202309/GetAgentSettingsResponse';
+export * from './customerService/V202309/GetAgentSettingsResponseData';
+export * from './customerService/V202309/GetConversationMessagesResponse';
+export * from './customerService/V202309/GetConversationMessagesResponseData';
+export * from './customerService/V202309/GetConversationMessagesResponseDataMessages';
+export * from './customerService/V202309/GetConversationMessagesResponseDataMessagesSender';
+export * from './customerService/V202309/GetConversationsResponse';
+export * from './customerService/V202309/GetConversationsResponseData';
+export * from './customerService/V202309/GetConversationsResponseDataConversations';
+export * from './customerService/V202309/GetConversationsResponseDataConversationsLatestMessage';
+export * from './customerService/V202309/GetConversationsResponseDataConversationsLatestMessageSender';
+export * from './customerService/V202309/GetConversationsResponseDataConversationsParticipants';
+export * from './customerService/V202309/ReadMessageResponse';
+export * from './customerService/V202309/SendMessageRequestBody';
+export * from './customerService/V202309/SendMessageResponse';
+export * from './customerService/V202309/SendMessageResponseData';
+export * from './customerService/V202309/UpdateAgentSettingsRequestBody';
+export * from './customerService/V202309/UpdateAgentSettingsResponse';
+export * from './customerService/V202309/UploadBuyerMessagesImageResponse';
+export * from './customerService/V202309/UploadBuyerMessagesImageResponseData';
+export * from './customerService/V202407/GetCustomerServicePerformanceResponse';
+export * from './customerService/V202407/GetCustomerServicePerformanceResponseData';
+export * from './customerService/V202407/GetCustomerServicePerformanceResponseDataPerformance';
+export * from './customerService/V202601/GetConversationResponse';
+export * from './customerService/V202601/GetConversationResponseData';
+export * from './customerService/V202601/GetConversationResponseDataConversation';
+export * from './customerService/V202601/GetConversationResponseDataConversationParticipants';
 export * from './dataReconciliation/V202309/OrderStatusDataExchangeRequestBody';
 export * from './dataReconciliation/V202309/OrderStatusDataExchangeRequestBodyOrders';
 export * from './dataReconciliation/V202309/OrderStatusDataExchangeRequestBodyOrdersPackages';
@@ -41,6 +71,52 @@ export * from './event/V202309/GetShopWebhooksResponseData';
 export * from './event/V202309/GetShopWebhooksResponseDataWebhooks';
 export * from './event/V202309/UpdateShopWebhookRequestBody';
 export * from './event/V202309/UpdateShopWebhookResponse';
+export * from './fbt/V202408/GetFBTWarehouseListResponse';
+export * from './fbt/V202408/GetFBTWarehouseListResponseData';
+export * from './fbt/V202408/GetFBTWarehouseListResponseDataWarehouses';
+export * from './fbt/V202408/GetFBTWarehouseListResponseDataWarehousesAddresses';
+export * from './fbt/V202408/GetFBTWarehouseListResponseDataWarehousesLogisticsServices';
+export * from './fbt/V202408/SearchFBTInventoryRequestBody';
+export * from './fbt/V202408/SearchFBTInventoryResponse';
+export * from './fbt/V202408/SearchFBTInventoryResponseData';
+export * from './fbt/V202408/SearchFBTInventoryResponseDataInventory';
+export * from './fbt/V202408/SearchFBTInventoryResponseDataInventoryGoods';
+export * from './fbt/V202408/SearchFBTInventoryResponseDataInventoryGoodsSkus';
+export * from './fbt/V202408/SearchFBTInventoryResponseDataInventoryGoodsSkusOnHandDetail';
+export * from './fbt/V202408/SearchFBTInventoryResponseDataInventoryOnHandDetail';
+export * from './fbt/V202409/GetFBTMerchantOnboardedRegionsResponse';
+export * from './fbt/V202409/GetFBTMerchantOnboardedRegionsResponseData';
+export * from './fbt/V202409/GetFBTMerchantOnboardedRegionsResponseDataOnboardedRegions';
+export * from './fbt/V202409/GetInboundOrderResponse';
+export * from './fbt/V202409/GetInboundOrderResponseData';
+export * from './fbt/V202409/GetInboundOrderResponseDataInboundOrders';
+export * from './fbt/V202409/GetInboundOrderResponseDataInboundOrdersCarriers';
+export * from './fbt/V202409/GetInboundOrderResponseDataInboundOrdersMerchant';
+export * from './fbt/V202409/GetInboundOrderResponseDataInboundOrdersOrderOperationLogs';
+export * from './fbt/V202409/GetInboundOrderResponseDataInboundOrdersPlannedGoods';
+export * from './fbt/V202409/GetInboundOrderResponseDataInboundOrdersReceivedBatches';
+export * from './fbt/V202409/GetInboundOrderResponseDataInboundOrdersWarehouse';
+export * from './fbt/V202409/SearchGoodsInfoRequestBody';
+export * from './fbt/V202409/SearchGoodsInfoResponse';
+export * from './fbt/V202409/SearchGoodsInfoResponseData';
+export * from './fbt/V202409/SearchGoodsInfoResponseDataGoods';
+export * from './fbt/V202409/SearchGoodsInfoResponseDataGoodsBarcodes';
+export * from './fbt/V202409/SearchGoodsInfoResponseDataGoodsLotExpirationInfo';
+export * from './fbt/V202409/SearchGoodsInfoResponseDataGoodsLotExpirationInfoAddresses';
+export * from './fbt/V202409/SearchGoodsInfoResponseDataGoodsMerchantDeclarationInfo';
+export * from './fbt/V202409/SearchGoodsInfoResponseDataGoodsMerchantDeclarationInfoDimension';
+export * from './fbt/V202409/SearchGoodsInfoResponseDataGoodsMerchantDeclarationInfoWeight';
+export * from './fbt/V202409/SearchGoodsInfoResponseDataGoodsSkus';
+export * from './fbt/V202409/SearchGoodsInfoResponseDataGoodsSkusProduct';
+export * from './fbt/V202409/SearchGoodsInfoResponseDataGoodsWarehouseConfirmationInfo';
+export * from './fbt/V202409/SearchGoodsInfoResponseDataGoodsWarehouseConfirmationInfoDimension';
+export * from './fbt/V202409/SearchGoodsInfoResponseDataGoodsWarehouseConfirmationInfoWeight';
+export * from './fbt/V202410/SearchFBTInventoryRecordRequestBody';
+export * from './fbt/V202410/SearchFBTInventoryRecordResponse';
+export * from './fbt/V202410/SearchFBTInventoryRecordResponseData';
+export * from './fbt/V202410/SearchFBTInventoryRecordResponseDataInventoryRecords';
+export * from './fbt/V202410/SearchFBTInventoryRecordResponseDataInventoryRecordsGoods';
+export * from './fbt/V202410/SearchFBTInventoryRecordResponseDataInventoryRecordsOrder';
 export * from './finance/V202309/GetPaymentsResponse';
 export * from './finance/V202309/GetPaymentsResponseData';
 export * from './finance/V202309/GetPaymentsResponseDataPayments';
@@ -210,6 +286,15 @@ export * from './fulfillment/V202510/CreateFirstMileBundleV2Response';
 export * from './fulfillment/V202510/CreateFirstMileBundleV2ResponseData';
 export * from './fulfillment/V202510/CreateFirstMileBundleV2ResponseDataErrors';
 export * from './fulfillment/V202510/CreateFirstMileBundleV2ResponseDataErrorsDetail';
+export * from './fulfillment/V202512/CreatePackagesRequestBody';
+export * from './fulfillment/V202512/CreatePackagesRequestBodyDimension';
+export * from './fulfillment/V202512/CreatePackagesRequestBodyOrderLineItem';
+export * from './fulfillment/V202512/CreatePackagesRequestBodyWeight';
+export * from './fulfillment/V202512/CreatePackagesResponse';
+export * from './fulfillment/V202512/CreatePackagesResponseData';
+export * from './fulfillment/V202512/CreatePackagesResponseDataDimension';
+export * from './fulfillment/V202512/CreatePackagesResponseDataShippingServiceInfo';
+export * from './fulfillment/V202512/CreatePackagesResponseDataWeight';
 export * from './logistics/V202309/GetGlobalSellerWarehouseResponse';
 export * from './logistics/V202309/GetGlobalSellerWarehouseResponseData';
 export * from './logistics/V202309/GetGlobalSellerWarehouseResponseDataGlobalWarehouses';
@@ -236,6 +321,9 @@ export * from './logistics/V202510/GetAvailableShippingTemplateResponseDataTempl
 export * from './logistics/V202510/GetAvailableShippingTemplateResponseDataTemplatesServiceUnreachableReason';
 export * from './logistics/V202510/GetAvailableShippingTemplateResponseDataTemplatesServiceUnreachableReasonFilterReason';
 export * from './logistics/V202510/GetAvailableShippingTemplateResponseDataTemplatesTemplate';
+export * from './open/V202512/UploadFileInitRequestBody';
+export * from './open/V202512/UploadFileInitResponse';
+export * from './open/V202512/UploadFileInitResponseData';
 export * from './order/V202309/GetOrderDetailResponse';
 export * from './order/V202309/GetOrderDetailResponseData';
 export * from './order/V202309/GetOrderDetailResponseDataOrders';
@@ -276,6 +364,9 @@ export * from './order/V202507/GetOrderDetailResponseDataOrdersPayment';
 export * from './order/V202507/GetOrderDetailResponseDataOrdersRecipientAddress';
 export * from './order/V202507/GetOrderDetailResponseDataOrdersRecipientAddressDeliveryPreferences';
 export * from './order/V202507/GetOrderDetailResponseDataOrdersRecipientAddressDistrictInfo';
+export * from './order/V202511/UpdateTheBlindBoxOpeningResultsRequestBody';
+export * from './order/V202511/UpdateTheBlindBoxOpeningResultsRequestBodyBlindBoxResults';
+export * from './order/V202511/UpdateTheBlindBoxOpeningResultsResponse';
 export * from './product/V202309/ActivateProductRequestBody';
 export * from './product/V202309/ActivateProductResponse';
 export * from './product/V202309/ActivateProductResponseData';
@@ -981,6 +1072,7 @@ export * from './promotion/V202309/CreateActivityRequestBodyDiscountGiftDiscount
 export * from './promotion/V202309/CreateActivityRequestBodyDiscountShippingDiscount';
 export * from './promotion/V202309/CreateActivityRequestBodyDiscountShippingDiscountAreaScope';
 export * from './promotion/V202309/CreateActivityRequestBodyParticipationLimit';
+export * from './promotion/V202309/CreateActivityRequestBodyTargetUserInfo';
 export * from './promotion/V202309/CreateActivityResponse';
 export * from './promotion/V202309/CreateActivityResponseData';
 export * from './promotion/V202309/DeactivateActivityResponse';
@@ -1000,6 +1092,7 @@ export * from './promotion/V202309/GetActivityResponseDataProducts';
 export * from './promotion/V202309/GetActivityResponseDataProductsActivityPrice';
 export * from './promotion/V202309/GetActivityResponseDataProductsSkus';
 export * from './promotion/V202309/GetActivityResponseDataProductsSkusActivityPrice';
+export * from './promotion/V202309/GetActivityResponseDataTargetUserInfo';
 export * from './promotion/V202309/RemoveActivityProductRequestBody';
 export * from './promotion/V202309/RemoveActivityProductResponse';
 export * from './promotion/V202309/RemoveActivityProductResponseData';
@@ -1031,6 +1124,7 @@ export * from './promotion/V202309/UpdateActivityRequestBodyDiscountGiftDiscount
 export * from './promotion/V202309/UpdateActivityRequestBodyDiscountShippingDiscount';
 export * from './promotion/V202309/UpdateActivityRequestBodyDiscountShippingDiscountAreaScope';
 export * from './promotion/V202309/UpdateActivityRequestBodyParticipationLimit';
+export * from './promotion/V202309/UpdateActivityRequestBodyTargetUserInfo';
 export * from './promotion/V202309/UpdateActivityResponse';
 export * from './promotion/V202309/UpdateActivityResponseData';
 export * from './promotion/V202406/GetCouponResponse';
@@ -1115,6 +1209,10 @@ export * from './returnRefund/V202309/SearchReturnsResponseDataReturnOrdersRetur
 export * from './returnRefund/V202309/SearchReturnsResponseDataReturnOrdersReturnWarehouseAddress';
 export * from './returnRefund/V202309/SearchReturnsResponseDataReturnOrdersSellerNextActionResponse';
 export * from './returnRefund/V202309/SearchReturnsResponseDataReturnOrdersShippingFeeAmount';
+export * from './returnRefund/V202512/GetAftersaleEligibilityResponse';
+export * from './returnRefund/V202512/GetAftersaleEligibilityResponseData';
+export * from './returnRefund/V202512/GetAftersaleEligibilityResponseDataSkuEligibility';
+export * from './returnRefund/V202512/GetAftersaleEligibilityResponseDataSkuEligibilityLineItemEligibility';
 export * from './seller/V202309/GetActiveShopsResponse';
 export * from './seller/V202309/GetActiveShopsResponseData';
 export * from './seller/V202309/GetActiveShopsResponseDataShops';
@@ -1153,6 +1251,36 @@ import { Authorization202401GetWidgetTokenResponse } from './authorization/V2024
 import { Authorization202401GetWidgetTokenResponseData } from './authorization/V202401/GetWidgetTokenResponseData';
 import { Authorization202401GetWidgetTokenResponseDataWidgetToken } from './authorization/V202401/GetWidgetTokenResponseDataWidgetToken';
 import { Authorization202403DeauthorizeShopResponse } from './authorization/V202403/DeauthorizeShopResponse';
+import { CustomerService202309CreateConversationRequestBody } from './customerService/V202309/CreateConversationRequestBody';
+import { CustomerService202309CreateConversationResponse } from './customerService/V202309/CreateConversationResponse';
+import { CustomerService202309CreateConversationResponseData } from './customerService/V202309/CreateConversationResponseData';
+import { CustomerService202309GetAgentSettingsResponse } from './customerService/V202309/GetAgentSettingsResponse';
+import { CustomerService202309GetAgentSettingsResponseData } from './customerService/V202309/GetAgentSettingsResponseData';
+import { CustomerService202309GetConversationMessagesResponse } from './customerService/V202309/GetConversationMessagesResponse';
+import { CustomerService202309GetConversationMessagesResponseData } from './customerService/V202309/GetConversationMessagesResponseData';
+import { CustomerService202309GetConversationMessagesResponseDataMessages } from './customerService/V202309/GetConversationMessagesResponseDataMessages';
+import { CustomerService202309GetConversationMessagesResponseDataMessagesSender } from './customerService/V202309/GetConversationMessagesResponseDataMessagesSender';
+import { CustomerService202309GetConversationsResponse } from './customerService/V202309/GetConversationsResponse';
+import { CustomerService202309GetConversationsResponseData } from './customerService/V202309/GetConversationsResponseData';
+import { CustomerService202309GetConversationsResponseDataConversations } from './customerService/V202309/GetConversationsResponseDataConversations';
+import { CustomerService202309GetConversationsResponseDataConversationsLatestMessage } from './customerService/V202309/GetConversationsResponseDataConversationsLatestMessage';
+import { CustomerService202309GetConversationsResponseDataConversationsLatestMessageSender } from './customerService/V202309/GetConversationsResponseDataConversationsLatestMessageSender';
+import { CustomerService202309GetConversationsResponseDataConversationsParticipants } from './customerService/V202309/GetConversationsResponseDataConversationsParticipants';
+import { CustomerService202309ReadMessageResponse } from './customerService/V202309/ReadMessageResponse';
+import { CustomerService202309SendMessageRequestBody } from './customerService/V202309/SendMessageRequestBody';
+import { CustomerService202309SendMessageResponse } from './customerService/V202309/SendMessageResponse';
+import { CustomerService202309SendMessageResponseData } from './customerService/V202309/SendMessageResponseData';
+import { CustomerService202309UpdateAgentSettingsRequestBody } from './customerService/V202309/UpdateAgentSettingsRequestBody';
+import { CustomerService202309UpdateAgentSettingsResponse } from './customerService/V202309/UpdateAgentSettingsResponse';
+import { CustomerService202309UploadBuyerMessagesImageResponse } from './customerService/V202309/UploadBuyerMessagesImageResponse';
+import { CustomerService202309UploadBuyerMessagesImageResponseData } from './customerService/V202309/UploadBuyerMessagesImageResponseData';
+import { CustomerService202407GetCustomerServicePerformanceResponse } from './customerService/V202407/GetCustomerServicePerformanceResponse';
+import { CustomerService202407GetCustomerServicePerformanceResponseData } from './customerService/V202407/GetCustomerServicePerformanceResponseData';
+import { CustomerService202407GetCustomerServicePerformanceResponseDataPerformance } from './customerService/V202407/GetCustomerServicePerformanceResponseDataPerformance';
+import { CustomerService202601GetConversationResponse } from './customerService/V202601/GetConversationResponse';
+import { CustomerService202601GetConversationResponseData } from './customerService/V202601/GetConversationResponseData';
+import { CustomerService202601GetConversationResponseDataConversation } from './customerService/V202601/GetConversationResponseDataConversation';
+import { CustomerService202601GetConversationResponseDataConversationParticipants } from './customerService/V202601/GetConversationResponseDataConversationParticipants';
 import { DataReconciliation202309OrderStatusDataExchangeRequestBody } from './dataReconciliation/V202309/OrderStatusDataExchangeRequestBody';
 import { DataReconciliation202309OrderStatusDataExchangeRequestBodyOrders } from './dataReconciliation/V202309/OrderStatusDataExchangeRequestBodyOrders';
 import { DataReconciliation202309OrderStatusDataExchangeRequestBodyOrdersPackages } from './dataReconciliation/V202309/OrderStatusDataExchangeRequestBodyOrdersPackages';
@@ -1184,6 +1312,52 @@ import { Event202309GetShopWebhooksResponseData } from './event/V202309/GetShopW
 import { Event202309GetShopWebhooksResponseDataWebhooks } from './event/V202309/GetShopWebhooksResponseDataWebhooks';
 import { Event202309UpdateShopWebhookRequestBody } from './event/V202309/UpdateShopWebhookRequestBody';
 import { Event202309UpdateShopWebhookResponse } from './event/V202309/UpdateShopWebhookResponse';
+import { Fbt202408GetFBTWarehouseListResponse } from './fbt/V202408/GetFBTWarehouseListResponse';
+import { Fbt202408GetFBTWarehouseListResponseData } from './fbt/V202408/GetFBTWarehouseListResponseData';
+import { Fbt202408GetFBTWarehouseListResponseDataWarehouses } from './fbt/V202408/GetFBTWarehouseListResponseDataWarehouses';
+import { Fbt202408GetFBTWarehouseListResponseDataWarehousesAddresses } from './fbt/V202408/GetFBTWarehouseListResponseDataWarehousesAddresses';
+import { Fbt202408GetFBTWarehouseListResponseDataWarehousesLogisticsServices } from './fbt/V202408/GetFBTWarehouseListResponseDataWarehousesLogisticsServices';
+import { Fbt202408SearchFBTInventoryRequestBody } from './fbt/V202408/SearchFBTInventoryRequestBody';
+import { Fbt202408SearchFBTInventoryResponse } from './fbt/V202408/SearchFBTInventoryResponse';
+import { Fbt202408SearchFBTInventoryResponseData } from './fbt/V202408/SearchFBTInventoryResponseData';
+import { Fbt202408SearchFBTInventoryResponseDataInventory } from './fbt/V202408/SearchFBTInventoryResponseDataInventory';
+import { Fbt202408SearchFBTInventoryResponseDataInventoryGoods } from './fbt/V202408/SearchFBTInventoryResponseDataInventoryGoods';
+import { Fbt202408SearchFBTInventoryResponseDataInventoryGoodsSkus } from './fbt/V202408/SearchFBTInventoryResponseDataInventoryGoodsSkus';
+import { Fbt202408SearchFBTInventoryResponseDataInventoryGoodsSkusOnHandDetail } from './fbt/V202408/SearchFBTInventoryResponseDataInventoryGoodsSkusOnHandDetail';
+import { Fbt202408SearchFBTInventoryResponseDataInventoryOnHandDetail } from './fbt/V202408/SearchFBTInventoryResponseDataInventoryOnHandDetail';
+import { Fbt202409GetFBTMerchantOnboardedRegionsResponse } from './fbt/V202409/GetFBTMerchantOnboardedRegionsResponse';
+import { Fbt202409GetFBTMerchantOnboardedRegionsResponseData } from './fbt/V202409/GetFBTMerchantOnboardedRegionsResponseData';
+import { Fbt202409GetFBTMerchantOnboardedRegionsResponseDataOnboardedRegions } from './fbt/V202409/GetFBTMerchantOnboardedRegionsResponseDataOnboardedRegions';
+import { Fbt202409GetInboundOrderResponse } from './fbt/V202409/GetInboundOrderResponse';
+import { Fbt202409GetInboundOrderResponseData } from './fbt/V202409/GetInboundOrderResponseData';
+import { Fbt202409GetInboundOrderResponseDataInboundOrders } from './fbt/V202409/GetInboundOrderResponseDataInboundOrders';
+import { Fbt202409GetInboundOrderResponseDataInboundOrdersCarriers } from './fbt/V202409/GetInboundOrderResponseDataInboundOrdersCarriers';
+import { Fbt202409GetInboundOrderResponseDataInboundOrdersMerchant } from './fbt/V202409/GetInboundOrderResponseDataInboundOrdersMerchant';
+import { Fbt202409GetInboundOrderResponseDataInboundOrdersOrderOperationLogs } from './fbt/V202409/GetInboundOrderResponseDataInboundOrdersOrderOperationLogs';
+import { Fbt202409GetInboundOrderResponseDataInboundOrdersPlannedGoods } from './fbt/V202409/GetInboundOrderResponseDataInboundOrdersPlannedGoods';
+import { Fbt202409GetInboundOrderResponseDataInboundOrdersReceivedBatches } from './fbt/V202409/GetInboundOrderResponseDataInboundOrdersReceivedBatches';
+import { Fbt202409GetInboundOrderResponseDataInboundOrdersWarehouse } from './fbt/V202409/GetInboundOrderResponseDataInboundOrdersWarehouse';
+import { Fbt202409SearchGoodsInfoRequestBody } from './fbt/V202409/SearchGoodsInfoRequestBody';
+import { Fbt202409SearchGoodsInfoResponse } from './fbt/V202409/SearchGoodsInfoResponse';
+import { Fbt202409SearchGoodsInfoResponseData } from './fbt/V202409/SearchGoodsInfoResponseData';
+import { Fbt202409SearchGoodsInfoResponseDataGoods } from './fbt/V202409/SearchGoodsInfoResponseDataGoods';
+import { Fbt202409SearchGoodsInfoResponseDataGoodsBarcodes } from './fbt/V202409/SearchGoodsInfoResponseDataGoodsBarcodes';
+import { Fbt202409SearchGoodsInfoResponseDataGoodsLotExpirationInfo } from './fbt/V202409/SearchGoodsInfoResponseDataGoodsLotExpirationInfo';
+import { Fbt202409SearchGoodsInfoResponseDataGoodsLotExpirationInfoAddresses } from './fbt/V202409/SearchGoodsInfoResponseDataGoodsLotExpirationInfoAddresses';
+import { Fbt202409SearchGoodsInfoResponseDataGoodsMerchantDeclarationInfo } from './fbt/V202409/SearchGoodsInfoResponseDataGoodsMerchantDeclarationInfo';
+import { Fbt202409SearchGoodsInfoResponseDataGoodsMerchantDeclarationInfoDimension } from './fbt/V202409/SearchGoodsInfoResponseDataGoodsMerchantDeclarationInfoDimension';
+import { Fbt202409SearchGoodsInfoResponseDataGoodsMerchantDeclarationInfoWeight } from './fbt/V202409/SearchGoodsInfoResponseDataGoodsMerchantDeclarationInfoWeight';
+import { Fbt202409SearchGoodsInfoResponseDataGoodsSkus } from './fbt/V202409/SearchGoodsInfoResponseDataGoodsSkus';
+import { Fbt202409SearchGoodsInfoResponseDataGoodsSkusProduct } from './fbt/V202409/SearchGoodsInfoResponseDataGoodsSkusProduct';
+import { Fbt202409SearchGoodsInfoResponseDataGoodsWarehouseConfirmationInfo } from './fbt/V202409/SearchGoodsInfoResponseDataGoodsWarehouseConfirmationInfo';
+import { Fbt202409SearchGoodsInfoResponseDataGoodsWarehouseConfirmationInfoDimension } from './fbt/V202409/SearchGoodsInfoResponseDataGoodsWarehouseConfirmationInfoDimension';
+import { Fbt202409SearchGoodsInfoResponseDataGoodsWarehouseConfirmationInfoWeight } from './fbt/V202409/SearchGoodsInfoResponseDataGoodsWarehouseConfirmationInfoWeight';
+import { Fbt202410SearchFBTInventoryRecordRequestBody } from './fbt/V202410/SearchFBTInventoryRecordRequestBody';
+import { Fbt202410SearchFBTInventoryRecordResponse } from './fbt/V202410/SearchFBTInventoryRecordResponse';
+import { Fbt202410SearchFBTInventoryRecordResponseData } from './fbt/V202410/SearchFBTInventoryRecordResponseData';
+import { Fbt202410SearchFBTInventoryRecordResponseDataInventoryRecords } from './fbt/V202410/SearchFBTInventoryRecordResponseDataInventoryRecords';
+import { Fbt202410SearchFBTInventoryRecordResponseDataInventoryRecordsGoods } from './fbt/V202410/SearchFBTInventoryRecordResponseDataInventoryRecordsGoods';
+import { Fbt202410SearchFBTInventoryRecordResponseDataInventoryRecordsOrder } from './fbt/V202410/SearchFBTInventoryRecordResponseDataInventoryRecordsOrder';
 import { Finance202309GetPaymentsResponse } from './finance/V202309/GetPaymentsResponse';
 import { Finance202309GetPaymentsResponseData } from './finance/V202309/GetPaymentsResponseData';
 import { Finance202309GetPaymentsResponseDataPayments } from './finance/V202309/GetPaymentsResponseDataPayments';
@@ -1353,6 +1527,15 @@ import { Fulfillment202510CreateFirstMileBundleV2Response } from './fulfillment/
 import { Fulfillment202510CreateFirstMileBundleV2ResponseData } from './fulfillment/V202510/CreateFirstMileBundleV2ResponseData';
 import { Fulfillment202510CreateFirstMileBundleV2ResponseDataErrors } from './fulfillment/V202510/CreateFirstMileBundleV2ResponseDataErrors';
 import { Fulfillment202510CreateFirstMileBundleV2ResponseDataErrorsDetail } from './fulfillment/V202510/CreateFirstMileBundleV2ResponseDataErrorsDetail';
+import { Fulfillment202512CreatePackagesRequestBody } from './fulfillment/V202512/CreatePackagesRequestBody';
+import { Fulfillment202512CreatePackagesRequestBodyDimension } from './fulfillment/V202512/CreatePackagesRequestBodyDimension';
+import { Fulfillment202512CreatePackagesRequestBodyOrderLineItem } from './fulfillment/V202512/CreatePackagesRequestBodyOrderLineItem';
+import { Fulfillment202512CreatePackagesRequestBodyWeight } from './fulfillment/V202512/CreatePackagesRequestBodyWeight';
+import { Fulfillment202512CreatePackagesResponse } from './fulfillment/V202512/CreatePackagesResponse';
+import { Fulfillment202512CreatePackagesResponseData } from './fulfillment/V202512/CreatePackagesResponseData';
+import { Fulfillment202512CreatePackagesResponseDataDimension } from './fulfillment/V202512/CreatePackagesResponseDataDimension';
+import { Fulfillment202512CreatePackagesResponseDataShippingServiceInfo } from './fulfillment/V202512/CreatePackagesResponseDataShippingServiceInfo';
+import { Fulfillment202512CreatePackagesResponseDataWeight } from './fulfillment/V202512/CreatePackagesResponseDataWeight';
 import { Logistics202309GetGlobalSellerWarehouseResponse } from './logistics/V202309/GetGlobalSellerWarehouseResponse';
 import { Logistics202309GetGlobalSellerWarehouseResponseData } from './logistics/V202309/GetGlobalSellerWarehouseResponseData';
 import { Logistics202309GetGlobalSellerWarehouseResponseDataGlobalWarehouses } from './logistics/V202309/GetGlobalSellerWarehouseResponseDataGlobalWarehouses';
@@ -1379,6 +1562,9 @@ import { Logistics202510GetAvailableShippingTemplateResponseDataTemplates } from
 import { Logistics202510GetAvailableShippingTemplateResponseDataTemplatesServiceUnreachableReason } from './logistics/V202510/GetAvailableShippingTemplateResponseDataTemplatesServiceUnreachableReason';
 import { Logistics202510GetAvailableShippingTemplateResponseDataTemplatesServiceUnreachableReasonFilterReason } from './logistics/V202510/GetAvailableShippingTemplateResponseDataTemplatesServiceUnreachableReasonFilterReason';
 import { Logistics202510GetAvailableShippingTemplateResponseDataTemplatesTemplate } from './logistics/V202510/GetAvailableShippingTemplateResponseDataTemplatesTemplate';
+import { Open202512UploadFileInitRequestBody } from './open/V202512/UploadFileInitRequestBody';
+import { Open202512UploadFileInitResponse } from './open/V202512/UploadFileInitResponse';
+import { Open202512UploadFileInitResponseData } from './open/V202512/UploadFileInitResponseData';
 import { Order202309GetOrderDetailResponse } from './order/V202309/GetOrderDetailResponse';
 import { Order202309GetOrderDetailResponseData } from './order/V202309/GetOrderDetailResponseData';
 import { Order202309GetOrderDetailResponseDataOrders } from './order/V202309/GetOrderDetailResponseDataOrders';
@@ -1419,6 +1605,9 @@ import { Order202507GetOrderDetailResponseDataOrdersPayment } from './order/V202
 import { Order202507GetOrderDetailResponseDataOrdersRecipientAddress } from './order/V202507/GetOrderDetailResponseDataOrdersRecipientAddress';
 import { Order202507GetOrderDetailResponseDataOrdersRecipientAddressDeliveryPreferences } from './order/V202507/GetOrderDetailResponseDataOrdersRecipientAddressDeliveryPreferences';
 import { Order202507GetOrderDetailResponseDataOrdersRecipientAddressDistrictInfo } from './order/V202507/GetOrderDetailResponseDataOrdersRecipientAddressDistrictInfo';
+import { Order202511UpdateTheBlindBoxOpeningResultsRequestBody } from './order/V202511/UpdateTheBlindBoxOpeningResultsRequestBody';
+import { Order202511UpdateTheBlindBoxOpeningResultsRequestBodyBlindBoxResults } from './order/V202511/UpdateTheBlindBoxOpeningResultsRequestBodyBlindBoxResults';
+import { Order202511UpdateTheBlindBoxOpeningResultsResponse } from './order/V202511/UpdateTheBlindBoxOpeningResultsResponse';
 import { Product202309ActivateProductRequestBody } from './product/V202309/ActivateProductRequestBody';
 import { Product202309ActivateProductResponse } from './product/V202309/ActivateProductResponse';
 import { Product202309ActivateProductResponseData } from './product/V202309/ActivateProductResponseData';
@@ -2124,6 +2313,7 @@ import { Promotion202309CreateActivityRequestBodyDiscountGiftDiscountGiftInfosGi
 import { Promotion202309CreateActivityRequestBodyDiscountShippingDiscount } from './promotion/V202309/CreateActivityRequestBodyDiscountShippingDiscount';
 import { Promotion202309CreateActivityRequestBodyDiscountShippingDiscountAreaScope } from './promotion/V202309/CreateActivityRequestBodyDiscountShippingDiscountAreaScope';
 import { Promotion202309CreateActivityRequestBodyParticipationLimit } from './promotion/V202309/CreateActivityRequestBodyParticipationLimit';
+import { Promotion202309CreateActivityRequestBodyTargetUserInfo } from './promotion/V202309/CreateActivityRequestBodyTargetUserInfo';
 import { Promotion202309CreateActivityResponse } from './promotion/V202309/CreateActivityResponse';
 import { Promotion202309CreateActivityResponseData } from './promotion/V202309/CreateActivityResponseData';
 import { Promotion202309DeactivateActivityResponse } from './promotion/V202309/DeactivateActivityResponse';
@@ -2143,6 +2333,7 @@ import { Promotion202309GetActivityResponseDataProducts } from './promotion/V202
 import { Promotion202309GetActivityResponseDataProductsActivityPrice } from './promotion/V202309/GetActivityResponseDataProductsActivityPrice';
 import { Promotion202309GetActivityResponseDataProductsSkus } from './promotion/V202309/GetActivityResponseDataProductsSkus';
 import { Promotion202309GetActivityResponseDataProductsSkusActivityPrice } from './promotion/V202309/GetActivityResponseDataProductsSkusActivityPrice';
+import { Promotion202309GetActivityResponseDataTargetUserInfo } from './promotion/V202309/GetActivityResponseDataTargetUserInfo';
 import { Promotion202309RemoveActivityProductRequestBody } from './promotion/V202309/RemoveActivityProductRequestBody';
 import { Promotion202309RemoveActivityProductResponse } from './promotion/V202309/RemoveActivityProductResponse';
 import { Promotion202309RemoveActivityProductResponseData } from './promotion/V202309/RemoveActivityProductResponseData';
@@ -2174,6 +2365,7 @@ import { Promotion202309UpdateActivityRequestBodyDiscountGiftDiscountGiftInfosGi
 import { Promotion202309UpdateActivityRequestBodyDiscountShippingDiscount } from './promotion/V202309/UpdateActivityRequestBodyDiscountShippingDiscount';
 import { Promotion202309UpdateActivityRequestBodyDiscountShippingDiscountAreaScope } from './promotion/V202309/UpdateActivityRequestBodyDiscountShippingDiscountAreaScope';
 import { Promotion202309UpdateActivityRequestBodyParticipationLimit } from './promotion/V202309/UpdateActivityRequestBodyParticipationLimit';
+import { Promotion202309UpdateActivityRequestBodyTargetUserInfo } from './promotion/V202309/UpdateActivityRequestBodyTargetUserInfo';
 import { Promotion202309UpdateActivityResponse } from './promotion/V202309/UpdateActivityResponse';
 import { Promotion202309UpdateActivityResponseData } from './promotion/V202309/UpdateActivityResponseData';
 import { Promotion202406GetCouponResponse } from './promotion/V202406/GetCouponResponse';
@@ -2258,6 +2450,10 @@ import { ReturnRefund202309SearchReturnsResponseDataReturnOrdersReturnLineItemsR
 import { ReturnRefund202309SearchReturnsResponseDataReturnOrdersReturnWarehouseAddress } from './returnRefund/V202309/SearchReturnsResponseDataReturnOrdersReturnWarehouseAddress';
 import { ReturnRefund202309SearchReturnsResponseDataReturnOrdersSellerNextActionResponse } from './returnRefund/V202309/SearchReturnsResponseDataReturnOrdersSellerNextActionResponse';
 import { ReturnRefund202309SearchReturnsResponseDataReturnOrdersShippingFeeAmount } from './returnRefund/V202309/SearchReturnsResponseDataReturnOrdersShippingFeeAmount';
+import { ReturnRefund202512GetAftersaleEligibilityResponse } from './returnRefund/V202512/GetAftersaleEligibilityResponse';
+import { ReturnRefund202512GetAftersaleEligibilityResponseData } from './returnRefund/V202512/GetAftersaleEligibilityResponseData';
+import { ReturnRefund202512GetAftersaleEligibilityResponseDataSkuEligibility } from './returnRefund/V202512/GetAftersaleEligibilityResponseDataSkuEligibility';
+import { ReturnRefund202512GetAftersaleEligibilityResponseDataSkuEligibilityLineItemEligibility } from './returnRefund/V202512/GetAftersaleEligibilityResponseDataSkuEligibilityLineItemEligibility';
 import { Seller202309GetActiveShopsResponse } from './seller/V202309/GetActiveShopsResponse';
 import { Seller202309GetActiveShopsResponseData } from './seller/V202309/GetActiveShopsResponseData';
 import { Seller202309GetActiveShopsResponseDataShops } from './seller/V202309/GetActiveShopsResponseDataShops';
@@ -2299,6 +2495,36 @@ let typeMap: {[index: string]: any} = {
     "Authorization202401GetWidgetTokenResponseData": Authorization202401GetWidgetTokenResponseData,
     "Authorization202401GetWidgetTokenResponseDataWidgetToken": Authorization202401GetWidgetTokenResponseDataWidgetToken,
     "Authorization202403DeauthorizeShopResponse": Authorization202403DeauthorizeShopResponse,
+    "CustomerService202309CreateConversationRequestBody": CustomerService202309CreateConversationRequestBody,
+    "CustomerService202309CreateConversationResponse": CustomerService202309CreateConversationResponse,
+    "CustomerService202309CreateConversationResponseData": CustomerService202309CreateConversationResponseData,
+    "CustomerService202309GetAgentSettingsResponse": CustomerService202309GetAgentSettingsResponse,
+    "CustomerService202309GetAgentSettingsResponseData": CustomerService202309GetAgentSettingsResponseData,
+    "CustomerService202309GetConversationMessagesResponse": CustomerService202309GetConversationMessagesResponse,
+    "CustomerService202309GetConversationMessagesResponseData": CustomerService202309GetConversationMessagesResponseData,
+    "CustomerService202309GetConversationMessagesResponseDataMessages": CustomerService202309GetConversationMessagesResponseDataMessages,
+    "CustomerService202309GetConversationMessagesResponseDataMessagesSender": CustomerService202309GetConversationMessagesResponseDataMessagesSender,
+    "CustomerService202309GetConversationsResponse": CustomerService202309GetConversationsResponse,
+    "CustomerService202309GetConversationsResponseData": CustomerService202309GetConversationsResponseData,
+    "CustomerService202309GetConversationsResponseDataConversations": CustomerService202309GetConversationsResponseDataConversations,
+    "CustomerService202309GetConversationsResponseDataConversationsLatestMessage": CustomerService202309GetConversationsResponseDataConversationsLatestMessage,
+    "CustomerService202309GetConversationsResponseDataConversationsLatestMessageSender": CustomerService202309GetConversationsResponseDataConversationsLatestMessageSender,
+    "CustomerService202309GetConversationsResponseDataConversationsParticipants": CustomerService202309GetConversationsResponseDataConversationsParticipants,
+    "CustomerService202309ReadMessageResponse": CustomerService202309ReadMessageResponse,
+    "CustomerService202309SendMessageRequestBody": CustomerService202309SendMessageRequestBody,
+    "CustomerService202309SendMessageResponse": CustomerService202309SendMessageResponse,
+    "CustomerService202309SendMessageResponseData": CustomerService202309SendMessageResponseData,
+    "CustomerService202309UpdateAgentSettingsRequestBody": CustomerService202309UpdateAgentSettingsRequestBody,
+    "CustomerService202309UpdateAgentSettingsResponse": CustomerService202309UpdateAgentSettingsResponse,
+    "CustomerService202309UploadBuyerMessagesImageResponse": CustomerService202309UploadBuyerMessagesImageResponse,
+    "CustomerService202309UploadBuyerMessagesImageResponseData": CustomerService202309UploadBuyerMessagesImageResponseData,
+    "CustomerService202407GetCustomerServicePerformanceResponse": CustomerService202407GetCustomerServicePerformanceResponse,
+    "CustomerService202407GetCustomerServicePerformanceResponseData": CustomerService202407GetCustomerServicePerformanceResponseData,
+    "CustomerService202407GetCustomerServicePerformanceResponseDataPerformance": CustomerService202407GetCustomerServicePerformanceResponseDataPerformance,
+    "CustomerService202601GetConversationResponse": CustomerService202601GetConversationResponse,
+    "CustomerService202601GetConversationResponseData": CustomerService202601GetConversationResponseData,
+    "CustomerService202601GetConversationResponseDataConversation": CustomerService202601GetConversationResponseDataConversation,
+    "CustomerService202601GetConversationResponseDataConversationParticipants": CustomerService202601GetConversationResponseDataConversationParticipants,
     "DataReconciliation202309OrderStatusDataExchangeRequestBody": DataReconciliation202309OrderStatusDataExchangeRequestBody,
     "DataReconciliation202309OrderStatusDataExchangeRequestBodyOrders": DataReconciliation202309OrderStatusDataExchangeRequestBodyOrders,
     "DataReconciliation202309OrderStatusDataExchangeRequestBodyOrdersPackages": DataReconciliation202309OrderStatusDataExchangeRequestBodyOrdersPackages,
@@ -2330,6 +2556,52 @@ let typeMap: {[index: string]: any} = {
     "Event202309GetShopWebhooksResponseDataWebhooks": Event202309GetShopWebhooksResponseDataWebhooks,
     "Event202309UpdateShopWebhookRequestBody": Event202309UpdateShopWebhookRequestBody,
     "Event202309UpdateShopWebhookResponse": Event202309UpdateShopWebhookResponse,
+    "Fbt202408GetFBTWarehouseListResponse": Fbt202408GetFBTWarehouseListResponse,
+    "Fbt202408GetFBTWarehouseListResponseData": Fbt202408GetFBTWarehouseListResponseData,
+    "Fbt202408GetFBTWarehouseListResponseDataWarehouses": Fbt202408GetFBTWarehouseListResponseDataWarehouses,
+    "Fbt202408GetFBTWarehouseListResponseDataWarehousesAddresses": Fbt202408GetFBTWarehouseListResponseDataWarehousesAddresses,
+    "Fbt202408GetFBTWarehouseListResponseDataWarehousesLogisticsServices": Fbt202408GetFBTWarehouseListResponseDataWarehousesLogisticsServices,
+    "Fbt202408SearchFBTInventoryRequestBody": Fbt202408SearchFBTInventoryRequestBody,
+    "Fbt202408SearchFBTInventoryResponse": Fbt202408SearchFBTInventoryResponse,
+    "Fbt202408SearchFBTInventoryResponseData": Fbt202408SearchFBTInventoryResponseData,
+    "Fbt202408SearchFBTInventoryResponseDataInventory": Fbt202408SearchFBTInventoryResponseDataInventory,
+    "Fbt202408SearchFBTInventoryResponseDataInventoryGoods": Fbt202408SearchFBTInventoryResponseDataInventoryGoods,
+    "Fbt202408SearchFBTInventoryResponseDataInventoryGoodsSkus": Fbt202408SearchFBTInventoryResponseDataInventoryGoodsSkus,
+    "Fbt202408SearchFBTInventoryResponseDataInventoryGoodsSkusOnHandDetail": Fbt202408SearchFBTInventoryResponseDataInventoryGoodsSkusOnHandDetail,
+    "Fbt202408SearchFBTInventoryResponseDataInventoryOnHandDetail": Fbt202408SearchFBTInventoryResponseDataInventoryOnHandDetail,
+    "Fbt202409GetFBTMerchantOnboardedRegionsResponse": Fbt202409GetFBTMerchantOnboardedRegionsResponse,
+    "Fbt202409GetFBTMerchantOnboardedRegionsResponseData": Fbt202409GetFBTMerchantOnboardedRegionsResponseData,
+    "Fbt202409GetFBTMerchantOnboardedRegionsResponseDataOnboardedRegions": Fbt202409GetFBTMerchantOnboardedRegionsResponseDataOnboardedRegions,
+    "Fbt202409GetInboundOrderResponse": Fbt202409GetInboundOrderResponse,
+    "Fbt202409GetInboundOrderResponseData": Fbt202409GetInboundOrderResponseData,
+    "Fbt202409GetInboundOrderResponseDataInboundOrders": Fbt202409GetInboundOrderResponseDataInboundOrders,
+    "Fbt202409GetInboundOrderResponseDataInboundOrdersCarriers": Fbt202409GetInboundOrderResponseDataInboundOrdersCarriers,
+    "Fbt202409GetInboundOrderResponseDataInboundOrdersMerchant": Fbt202409GetInboundOrderResponseDataInboundOrdersMerchant,
+    "Fbt202409GetInboundOrderResponseDataInboundOrdersOrderOperationLogs": Fbt202409GetInboundOrderResponseDataInboundOrdersOrderOperationLogs,
+    "Fbt202409GetInboundOrderResponseDataInboundOrdersPlannedGoods": Fbt202409GetInboundOrderResponseDataInboundOrdersPlannedGoods,
+    "Fbt202409GetInboundOrderResponseDataInboundOrdersReceivedBatches": Fbt202409GetInboundOrderResponseDataInboundOrdersReceivedBatches,
+    "Fbt202409GetInboundOrderResponseDataInboundOrdersWarehouse": Fbt202409GetInboundOrderResponseDataInboundOrdersWarehouse,
+    "Fbt202409SearchGoodsInfoRequestBody": Fbt202409SearchGoodsInfoRequestBody,
+    "Fbt202409SearchGoodsInfoResponse": Fbt202409SearchGoodsInfoResponse,
+    "Fbt202409SearchGoodsInfoResponseData": Fbt202409SearchGoodsInfoResponseData,
+    "Fbt202409SearchGoodsInfoResponseDataGoods": Fbt202409SearchGoodsInfoResponseDataGoods,
+    "Fbt202409SearchGoodsInfoResponseDataGoodsBarcodes": Fbt202409SearchGoodsInfoResponseDataGoodsBarcodes,
+    "Fbt202409SearchGoodsInfoResponseDataGoodsLotExpirationInfo": Fbt202409SearchGoodsInfoResponseDataGoodsLotExpirationInfo,
+    "Fbt202409SearchGoodsInfoResponseDataGoodsLotExpirationInfoAddresses": Fbt202409SearchGoodsInfoResponseDataGoodsLotExpirationInfoAddresses,
+    "Fbt202409SearchGoodsInfoResponseDataGoodsMerchantDeclarationInfo": Fbt202409SearchGoodsInfoResponseDataGoodsMerchantDeclarationInfo,
+    "Fbt202409SearchGoodsInfoResponseDataGoodsMerchantDeclarationInfoDimension": Fbt202409SearchGoodsInfoResponseDataGoodsMerchantDeclarationInfoDimension,
+    "Fbt202409SearchGoodsInfoResponseDataGoodsMerchantDeclarationInfoWeight": Fbt202409SearchGoodsInfoResponseDataGoodsMerchantDeclarationInfoWeight,
+    "Fbt202409SearchGoodsInfoResponseDataGoodsSkus": Fbt202409SearchGoodsInfoResponseDataGoodsSkus,
+    "Fbt202409SearchGoodsInfoResponseDataGoodsSkusProduct": Fbt202409SearchGoodsInfoResponseDataGoodsSkusProduct,
+    "Fbt202409SearchGoodsInfoResponseDataGoodsWarehouseConfirmationInfo": Fbt202409SearchGoodsInfoResponseDataGoodsWarehouseConfirmationInfo,
+    "Fbt202409SearchGoodsInfoResponseDataGoodsWarehouseConfirmationInfoDimension": Fbt202409SearchGoodsInfoResponseDataGoodsWarehouseConfirmationInfoDimension,
+    "Fbt202409SearchGoodsInfoResponseDataGoodsWarehouseConfirmationInfoWeight": Fbt202409SearchGoodsInfoResponseDataGoodsWarehouseConfirmationInfoWeight,
+    "Fbt202410SearchFBTInventoryRecordRequestBody": Fbt202410SearchFBTInventoryRecordRequestBody,
+    "Fbt202410SearchFBTInventoryRecordResponse": Fbt202410SearchFBTInventoryRecordResponse,
+    "Fbt202410SearchFBTInventoryRecordResponseData": Fbt202410SearchFBTInventoryRecordResponseData,
+    "Fbt202410SearchFBTInventoryRecordResponseDataInventoryRecords": Fbt202410SearchFBTInventoryRecordResponseDataInventoryRecords,
+    "Fbt202410SearchFBTInventoryRecordResponseDataInventoryRecordsGoods": Fbt202410SearchFBTInventoryRecordResponseDataInventoryRecordsGoods,
+    "Fbt202410SearchFBTInventoryRecordResponseDataInventoryRecordsOrder": Fbt202410SearchFBTInventoryRecordResponseDataInventoryRecordsOrder,
     "Finance202309GetPaymentsResponse": Finance202309GetPaymentsResponse,
     "Finance202309GetPaymentsResponseData": Finance202309GetPaymentsResponseData,
     "Finance202309GetPaymentsResponseDataPayments": Finance202309GetPaymentsResponseDataPayments,
@@ -2499,6 +2771,15 @@ let typeMap: {[index: string]: any} = {
     "Fulfillment202510CreateFirstMileBundleV2ResponseData": Fulfillment202510CreateFirstMileBundleV2ResponseData,
     "Fulfillment202510CreateFirstMileBundleV2ResponseDataErrors": Fulfillment202510CreateFirstMileBundleV2ResponseDataErrors,
     "Fulfillment202510CreateFirstMileBundleV2ResponseDataErrorsDetail": Fulfillment202510CreateFirstMileBundleV2ResponseDataErrorsDetail,
+    "Fulfillment202512CreatePackagesRequestBody": Fulfillment202512CreatePackagesRequestBody,
+    "Fulfillment202512CreatePackagesRequestBodyDimension": Fulfillment202512CreatePackagesRequestBodyDimension,
+    "Fulfillment202512CreatePackagesRequestBodyOrderLineItem": Fulfillment202512CreatePackagesRequestBodyOrderLineItem,
+    "Fulfillment202512CreatePackagesRequestBodyWeight": Fulfillment202512CreatePackagesRequestBodyWeight,
+    "Fulfillment202512CreatePackagesResponse": Fulfillment202512CreatePackagesResponse,
+    "Fulfillment202512CreatePackagesResponseData": Fulfillment202512CreatePackagesResponseData,
+    "Fulfillment202512CreatePackagesResponseDataDimension": Fulfillment202512CreatePackagesResponseDataDimension,
+    "Fulfillment202512CreatePackagesResponseDataShippingServiceInfo": Fulfillment202512CreatePackagesResponseDataShippingServiceInfo,
+    "Fulfillment202512CreatePackagesResponseDataWeight": Fulfillment202512CreatePackagesResponseDataWeight,
     "Logistics202309GetGlobalSellerWarehouseResponse": Logistics202309GetGlobalSellerWarehouseResponse,
     "Logistics202309GetGlobalSellerWarehouseResponseData": Logistics202309GetGlobalSellerWarehouseResponseData,
     "Logistics202309GetGlobalSellerWarehouseResponseDataGlobalWarehouses": Logistics202309GetGlobalSellerWarehouseResponseDataGlobalWarehouses,
@@ -2525,6 +2806,9 @@ let typeMap: {[index: string]: any} = {
     "Logistics202510GetAvailableShippingTemplateResponseDataTemplatesServiceUnreachableReason": Logistics202510GetAvailableShippingTemplateResponseDataTemplatesServiceUnreachableReason,
     "Logistics202510GetAvailableShippingTemplateResponseDataTemplatesServiceUnreachableReasonFilterReason": Logistics202510GetAvailableShippingTemplateResponseDataTemplatesServiceUnreachableReasonFilterReason,
     "Logistics202510GetAvailableShippingTemplateResponseDataTemplatesTemplate": Logistics202510GetAvailableShippingTemplateResponseDataTemplatesTemplate,
+    "Open202512UploadFileInitRequestBody": Open202512UploadFileInitRequestBody,
+    "Open202512UploadFileInitResponse": Open202512UploadFileInitResponse,
+    "Open202512UploadFileInitResponseData": Open202512UploadFileInitResponseData,
     "Order202309GetOrderDetailResponse": Order202309GetOrderDetailResponse,
     "Order202309GetOrderDetailResponseData": Order202309GetOrderDetailResponseData,
     "Order202309GetOrderDetailResponseDataOrders": Order202309GetOrderDetailResponseDataOrders,
@@ -2565,6 +2849,9 @@ let typeMap: {[index: string]: any} = {
     "Order202507GetOrderDetailResponseDataOrdersRecipientAddress": Order202507GetOrderDetailResponseDataOrdersRecipientAddress,
     "Order202507GetOrderDetailResponseDataOrdersRecipientAddressDeliveryPreferences": Order202507GetOrderDetailResponseDataOrdersRecipientAddressDeliveryPreferences,
     "Order202507GetOrderDetailResponseDataOrdersRecipientAddressDistrictInfo": Order202507GetOrderDetailResponseDataOrdersRecipientAddressDistrictInfo,
+    "Order202511UpdateTheBlindBoxOpeningResultsRequestBody": Order202511UpdateTheBlindBoxOpeningResultsRequestBody,
+    "Order202511UpdateTheBlindBoxOpeningResultsRequestBodyBlindBoxResults": Order202511UpdateTheBlindBoxOpeningResultsRequestBodyBlindBoxResults,
+    "Order202511UpdateTheBlindBoxOpeningResultsResponse": Order202511UpdateTheBlindBoxOpeningResultsResponse,
     "Product202309ActivateProductRequestBody": Product202309ActivateProductRequestBody,
     "Product202309ActivateProductResponse": Product202309ActivateProductResponse,
     "Product202309ActivateProductResponseData": Product202309ActivateProductResponseData,
@@ -3270,6 +3557,7 @@ let typeMap: {[index: string]: any} = {
     "Promotion202309CreateActivityRequestBodyDiscountShippingDiscount": Promotion202309CreateActivityRequestBodyDiscountShippingDiscount,
     "Promotion202309CreateActivityRequestBodyDiscountShippingDiscountAreaScope": Promotion202309CreateActivityRequestBodyDiscountShippingDiscountAreaScope,
     "Promotion202309CreateActivityRequestBodyParticipationLimit": Promotion202309CreateActivityRequestBodyParticipationLimit,
+    "Promotion202309CreateActivityRequestBodyTargetUserInfo": Promotion202309CreateActivityRequestBodyTargetUserInfo,
     "Promotion202309CreateActivityResponse": Promotion202309CreateActivityResponse,
     "Promotion202309CreateActivityResponseData": Promotion202309CreateActivityResponseData,
     "Promotion202309DeactivateActivityResponse": Promotion202309DeactivateActivityResponse,
@@ -3289,6 +3577,7 @@ let typeMap: {[index: string]: any} = {
     "Promotion202309GetActivityResponseDataProductsActivityPrice": Promotion202309GetActivityResponseDataProductsActivityPrice,
     "Promotion202309GetActivityResponseDataProductsSkus": Promotion202309GetActivityResponseDataProductsSkus,
     "Promotion202309GetActivityResponseDataProductsSkusActivityPrice": Promotion202309GetActivityResponseDataProductsSkusActivityPrice,
+    "Promotion202309GetActivityResponseDataTargetUserInfo": Promotion202309GetActivityResponseDataTargetUserInfo,
     "Promotion202309RemoveActivityProductRequestBody": Promotion202309RemoveActivityProductRequestBody,
     "Promotion202309RemoveActivityProductResponse": Promotion202309RemoveActivityProductResponse,
     "Promotion202309RemoveActivityProductResponseData": Promotion202309RemoveActivityProductResponseData,
@@ -3320,6 +3609,7 @@ let typeMap: {[index: string]: any} = {
     "Promotion202309UpdateActivityRequestBodyDiscountShippingDiscount": Promotion202309UpdateActivityRequestBodyDiscountShippingDiscount,
     "Promotion202309UpdateActivityRequestBodyDiscountShippingDiscountAreaScope": Promotion202309UpdateActivityRequestBodyDiscountShippingDiscountAreaScope,
     "Promotion202309UpdateActivityRequestBodyParticipationLimit": Promotion202309UpdateActivityRequestBodyParticipationLimit,
+    "Promotion202309UpdateActivityRequestBodyTargetUserInfo": Promotion202309UpdateActivityRequestBodyTargetUserInfo,
     "Promotion202309UpdateActivityResponse": Promotion202309UpdateActivityResponse,
     "Promotion202309UpdateActivityResponseData": Promotion202309UpdateActivityResponseData,
     "Promotion202406GetCouponResponse": Promotion202406GetCouponResponse,
@@ -3404,6 +3694,10 @@ let typeMap: {[index: string]: any} = {
     "ReturnRefund202309SearchReturnsResponseDataReturnOrdersReturnWarehouseAddress": ReturnRefund202309SearchReturnsResponseDataReturnOrdersReturnWarehouseAddress,
     "ReturnRefund202309SearchReturnsResponseDataReturnOrdersSellerNextActionResponse": ReturnRefund202309SearchReturnsResponseDataReturnOrdersSellerNextActionResponse,
     "ReturnRefund202309SearchReturnsResponseDataReturnOrdersShippingFeeAmount": ReturnRefund202309SearchReturnsResponseDataReturnOrdersShippingFeeAmount,
+    "ReturnRefund202512GetAftersaleEligibilityResponse": ReturnRefund202512GetAftersaleEligibilityResponse,
+    "ReturnRefund202512GetAftersaleEligibilityResponseData": ReturnRefund202512GetAftersaleEligibilityResponseData,
+    "ReturnRefund202512GetAftersaleEligibilityResponseDataSkuEligibility": ReturnRefund202512GetAftersaleEligibilityResponseDataSkuEligibility,
+    "ReturnRefund202512GetAftersaleEligibilityResponseDataSkuEligibilityLineItemEligibility": ReturnRefund202512GetAftersaleEligibilityResponseDataSkuEligibilityLineItemEligibility,
     "Seller202309GetActiveShopsResponse": Seller202309GetActiveShopsResponse,
     "Seller202309GetActiveShopsResponseData": Seller202309GetActiveShopsResponseData,
     "Seller202309GetActiveShopsResponseDataShops": Seller202309GetActiveShopsResponseDataShops,

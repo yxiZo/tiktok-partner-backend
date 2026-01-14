@@ -14,7 +14,7 @@ import { RequestFile } from '../../models';
 
 export class Product202502SearchProductsResponseDataProductsSkusPreSaleFulfillmentType {
     /**
-    * The desired duration for handling a pre-sale order and handing it over to a shipping carrier.   Applicable only for the following regions and pre-sale type: **US** - `MADE_TO_ORDER`: Business days - `CUSTOM`: Business days  **UK and SEA** - `PRE_ORDER`: Calendar days
+    * The desired duration for handling a pre-sale order and handing it over to a shipping carrier.   Applicable only for the following regions and pre-sale type: **US** - `MADE_TO_ORDER`: Business days - `CUSTOM`: Business days  **UK, EU, SEA, JP, and LATAM** - `PRE_ORDER`: Calendar days
     */
     'handlingDurationDays'?: number;
     /**

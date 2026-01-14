@@ -16,7 +16,7 @@ import { Product202309GetProductResponseDataSkusPreSaleFulfillmentType } from '.
 export class Product202309GetProductResponseDataSkusPreSale {
     'fulfillmentType'?: Product202309GetProductResponseDataSkusPreSaleFulfillmentType;
     /**
-    * The type of pre-sale. Possible values based on the region: **US** - `PRE_ORDER`: The product is not yet available or released. Fulfillment can be extended by specifying a **release date**. - `MADE_TO_ORDER`: The product is produced only after the order is received. Fulfillment can be extended by specifying a **duration**. - `CUSTOM`: The product requires a fulfillment timeline that exceeds the standard due to other factors. Fulfillment can be extended by specifying a **duration**.  **UK, EU, SEA, and JP** - `PRE_ORDER`: The product is not yet available or released. Fulfillment can be extended by specifying a **duration**. 
+    * The type of pre-sale. Possible values based on the region: **US** - `PRE_ORDER`: The product is not yet available or released. Fulfillment can be extended by specifying a **release date**. - `MADE_TO_ORDER`: The product is produced only after the order is received. Fulfillment can be extended by specifying a **duration**. - `CUSTOM`: The product requires a fulfillment timeline that exceeds the standard due to other factors. Fulfillment can be extended by specifying a **duration**.  **UK, EU, SEA, JP, and LATAM** - `PRE_ORDER`: The product is not yet available or released. Fulfillment can be extended by specifying a **duration**. 
     */
     'type'?: string;
 

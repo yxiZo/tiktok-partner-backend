@@ -14,7 +14,7 @@ import { RequestFile } from '../../models';
 
 export class Product202509EditProductRequestBodySkusPreSaleFulfillmentType {
     /**
-    * The desired duration for handling a pre-sale order and handing it over to a shipping carrier.   Applicable only for the following regions and pre-sale type: **US** - `MADE_TO_ORDER`: Business days, from 3 to 14 days. - `CUSTOM`: Business days, from 3 to 30 days.  **UK, EU, SEA, and JP** - `PRE_ORDER`: Calendar days, from 3 to 30 days.
+    * The desired duration for handling a pre-sale order and handing it over to a shipping carrier.   Applicable only for the following regions and pre-sale type: **US** - `MADE_TO_ORDER`: Business days, from 3 to 14 days. - `CUSTOM`: Business days, from 3 to 30 days.  **UK, EU, SEA, JP, and LATAM** - `PRE_ORDER`: Calendar days, from 3 to 30 days.
     */
     'handlingDurationDays'?: number;
     /**

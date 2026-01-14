@@ -1,3 +1,2 @@
- API Update The Blind Box Opening Results, Upload File Init has been added. 
- API: Check Product Listing, Create Activity, Create Global Product, Create Product, Edit Global Product, Edit Product, Edit Product, Get Activity, Get Conversation Messages, Get FBT Merchant Onboarded Regions, Get FBT Warehouse List , Get Inbound Order, Get Order Detail, Get Order Detail, Get Order List, Get Package Shipping Document, Get Product, Get Statements, Get Transactions by Order, Get Transactions by Statement, Partial Edit Product, Search Activities, Search FBT Inventory, Search FBT Inventory Record, Search Goods Info, Search Products, Send Message, Update Activity, Update Activity Product, Update Inventory, Upload Invoice has been upgraded. 
- API: Create Packages, Get Aftersale Eligibility has a new version. 
+ API Get Conversation has been added. 
+ API: Get Transactions by Order, Get Transactions by Statement, Get Unsettled Transactions has been upgraded. 

@@ -23,6 +23,10 @@ export class Order202507GetOrderDetailResponseDataOrders {
     */
     'autoCombineGroupId'?: string;
     /**
+    * The avatar of the TikTok buyer, which is defined by the TikTok user. The buyer_avatar can be used in conjunction with the buyer_nickname when displaying the unboxing results within the TikTok Live Session.
+    */
+    'buyerAvatar'?: string;
+    /**
     * The anonymized email address of the buyer. It is not recommended to send messages directly to this email address. If you need to contact the buyer, please go to Seller Center - Buyer Messages page.
     */
     'buyerEmail'?: string;
@@ -31,11 +35,15 @@ export class Order202507GetOrderDetailResponseDataOrders {
     */
     'buyerMessage'?: string;
     /**
+    * The nickname of the TikTok buyer, which is defined by the TikTok user. The buyer_nickname can be used to identify the buyer when displaying the unboxing results within the TikTok Live Session.
+    */
+    'buyerNickname'?: string;
+    /**
     * The automatic cancellation time for orders specified by the platform. Unix timestamp.
     */
     'cancelOrderSlaTime'?: number;
     /**
-    * The reason for cancelling. [See here](https://partner.tiktokshop.com/docv2/page/650b28280fcef602bf435096#Back%20To%20Top) for more information.
+    * The order level cancellation reason. **Note**: A multi-line order may have different `cancel_reason` across the multiple items. If this occurs, the order-level `cancel_reason` will surface the `cancel_reason` from the first line item. [See here](https://partner.tiktokshop.com/docv2/page/cancel-reasons) for more details on cancellation reasons.
     */
     'cancelReason'?: string;
     /**
@@ -275,6 +283,11 @@ export class Order202507GetOrderDetailResponseDataOrders {
             "type": "string"
         },
         {
+            "name": "buyerAvatar",
+            "baseName": "buyer_avatar",
+            "type": "string"
+        },
+        {
             "name": "buyerEmail",
             "baseName": "buyer_email",
             "type": "string"
@@ -282,6 +295,11 @@ export class Order202507GetOrderDetailResponseDataOrders {
         {
             "name": "buyerMessage",
             "baseName": "buyer_message",
+            "type": "string"
+        },
+        {
+            "name": "buyerNickname",
+            "baseName": "buyer_nickname",
             "type": "string"
         },
         {

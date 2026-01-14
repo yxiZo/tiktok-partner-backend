@@ -13,6 +13,7 @@
 import { RequestFile } from '../../models';
 import { Promotion202309CreateActivityRequestBodyDiscount } from './CreateActivityRequestBodyDiscount';
 import { Promotion202309CreateActivityRequestBodyParticipationLimit } from './CreateActivityRequestBodyParticipationLimit';
+import { Promotion202309CreateActivityRequestBodyTargetUserInfo } from './CreateActivityRequestBodyTargetUserInfo';
 
 export class Promotion202309CreateActivityRequestBody {
     /**
@@ -40,6 +41,7 @@ export class Promotion202309CreateActivityRequestBody {
     * Activity product dimension, values are: ​- PRODUCT: Promotion activity applies at the product (SPU) level. Any and all SKUs that are part of this product will be subject to the promotion. ​- VARIATION: Promotion activity only applies to specified SKUs. ​- SHOP: Promotion activity applies to all products in the shop. When `activity_type` is `SHIPPING_DISCOUNT`, the `product_level` can not be `VARIATION`. To set the products or SKUs covered by the activity, use [Update Activity Product](https://partner.tiktokshop.com/docv2/page/650d32c42aaa3602b86ccb5c).
     */
     'productLevel'?: string;
+    'targetUserInfo'?: Promotion202309CreateActivityRequestBodyTargetUserInfo;
     /**
     * Unique name across all your activities. The length must not exceed 50 characters.
     */
@@ -82,6 +84,11 @@ export class Promotion202309CreateActivityRequestBody {
             "name": "productLevel",
             "baseName": "product_level",
             "type": "string"
+        },
+        {
+            "name": "targetUserInfo",
+            "baseName": "target_user_info",
+            "type": "Promotion202309CreateActivityRequestBodyTargetUserInfo"
         },
         {
             "name": "title",

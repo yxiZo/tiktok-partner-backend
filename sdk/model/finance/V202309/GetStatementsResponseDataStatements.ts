@@ -42,6 +42,10 @@ export class Finance202309GetStatementsResponseDataStatements {
     */
     'paymentStatus'?: string;
     /**
+    * The Unix payment timestamp 
+    */
+    'paymentTime'?: number;
+    /**
     * The final revenue amount at the time of order settlement.  Applicable for all regions except UK and US.
     */
     'revenueAmount'?: string;
@@ -95,6 +99,11 @@ export class Finance202309GetStatementsResponseDataStatements {
             "name": "paymentStatus",
             "baseName": "payment_status",
             "type": "string"
+        },
+        {
+            "name": "paymentTime",
+            "baseName": "payment_time",
+            "type": "number"
         },
         {
             "name": "revenueAmount",

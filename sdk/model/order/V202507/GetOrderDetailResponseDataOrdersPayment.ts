@@ -42,6 +42,14 @@ export class Order202507GetOrderDetailResponseDataOrdersPayment {
     */
     'originalTotalProductPrice'?: string;
     /**
+    * Service fee as paid by the buyer to apply payment platform discount
+    */
+    'paymentDiscountServiceFee'?: string;
+    /**
+    * Discount applied to the order funded by a payment platform
+    */
+    'paymentPlatformDiscount'?: string;
+    /**
     * Product discount by platform.
     */
     'platformDiscount'?: string;
@@ -134,6 +142,16 @@ export class Order202507GetOrderDetailResponseDataOrdersPayment {
         {
             "name": "originalTotalProductPrice",
             "baseName": "original_total_product_price",
+            "type": "string"
+        },
+        {
+            "name": "paymentDiscountServiceFee",
+            "baseName": "payment_discount_service_fee",
+            "type": "string"
+        },
+        {
+            "name": "paymentPlatformDiscount",
+            "baseName": "payment_platform_discount",
             "type": "string"
         },
         {

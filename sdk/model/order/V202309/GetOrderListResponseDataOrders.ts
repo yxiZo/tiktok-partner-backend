@@ -23,6 +23,10 @@ export class Order202309GetOrderListResponseDataOrders {
     */
     'autoCombineGroupId'?: string;
     /**
+    * The avatar of the TikTok buyer, which is defined by the TikTok user. The buyer_avatar can be used in conjunction with the buyer_nickname when displaying the unboxing results within the TikTok Live Session.
+    */
+    'buyerAvatar'?: string;
+    /**
     * The anonymized email address of the buyer. It is not recommended to send messages directly to this email address. If you need to contact the buyer, please go to the TikTok Shop Seller Center - Buyer Messages page.
     */
     'buyerEmail'?: string;
@@ -30,6 +34,10 @@ export class Order202309GetOrderListResponseDataOrders {
     * The note from the buyer.
     */
     'buyerMessage'?: string;
+    /**
+    * The nickname of the TikTok buyer, which is defined by the TikTok user. The buyer_nickname can be used to identify the buyer when displaying the unboxing results within the TikTok Live Session.
+    */
+    'buyerNickname'?: string;
     /**
     * The automatic cancellation time for orders specified by the platform. Unix timestamp.
     */
@@ -267,6 +275,11 @@ export class Order202309GetOrderListResponseDataOrders {
             "type": "string"
         },
         {
+            "name": "buyerAvatar",
+            "baseName": "buyer_avatar",
+            "type": "string"
+        },
+        {
             "name": "buyerEmail",
             "baseName": "buyer_email",
             "type": "string"
@@ -274,6 +287,11 @@ export class Order202309GetOrderListResponseDataOrders {
         {
             "name": "buyerMessage",
             "baseName": "buyer_message",
+            "type": "string"
+        },
+        {
+            "name": "buyerNickname",
+            "baseName": "buyer_nickname",
             "type": "string"
         },
         {

@@ -25,6 +25,10 @@ export class Order202309GetOrderDetailResponseDataOrdersRecipientAddressDistrict
     * Administrative area name. eg: London
     */
     'addressName'?: string;
+    /**
+    * ISO code of the administrative district level
+    */
+    'isoCode'?: string;
 
     static discriminator: string | undefined = undefined;
 
@@ -42,6 +46,11 @@ export class Order202309GetOrderDetailResponseDataOrdersRecipientAddressDistrict
         {
             "name": "addressName",
             "baseName": "address_name",
+            "type": "string"
+        },
+        {
+            "name": "isoCode",
+            "baseName": "iso_code",
             "type": "string"
         }    ];
 

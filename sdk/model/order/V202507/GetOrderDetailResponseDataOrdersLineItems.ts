@@ -60,6 +60,10 @@ export class Order202507GetOrderDetailResponseDataOrdersLineItems {
     */
     'isGift'?: boolean;
     /**
+    * If `true`, indicates the sku is a blind box item that will need be unboxed to reveal the actual product to the buyer. The actual product sku name and picture can also be updated to TikTok after the unboxing is completed.   Note: This is currently only available in the US market.
+    */
+    'isUnboxingItem'?: boolean;
+    /**
     * Item tax detail.
     */
     'itemTax'?: Array<Order202507GetOrderDetailResponseDataOrdersLineItemsItemTax>;
@@ -147,6 +151,10 @@ export class Order202507GetOrderDetailResponseDataOrdersLineItems {
     * Tracking number. Available after package has been shipped.
     */
     'trackingNumber'?: string;
+    /**
+    * A seller\'s third party sku code for the actual unboxed item, which warehouse fulfillment operations can reference to identify the accurate product they are shipping.  Note: This is currently only available in the US market.  
+    */
+    'unboxingSkuCode'?: string;
 
     static discriminator: string | undefined = undefined;
 
@@ -204,6 +212,11 @@ export class Order202507GetOrderDetailResponseDataOrdersLineItems {
         {
             "name": "isGift",
             "baseName": "is_gift",
+            "type": "boolean"
+        },
+        {
+            "name": "isUnboxingItem",
+            "baseName": "is_unboxing_item",
             "type": "boolean"
         },
         {
@@ -314,6 +327,11 @@ export class Order202507GetOrderDetailResponseDataOrdersLineItems {
         {
             "name": "trackingNumber",
             "baseName": "tracking_number",
+            "type": "string"
+        },
+        {
+            "name": "unboxingSkuCode",
+            "baseName": "unboxing_sku_code",
             "type": "string"
         }    ];
 
