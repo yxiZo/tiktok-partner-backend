@@ -50,6 +50,7 @@ export class ProductService {
         accessToken,
         'application/json',
         undefined, // pageToken
+        undefined, // categoryVersion
         shopCipher,
         searchRequest as any,
       );

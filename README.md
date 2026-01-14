@@ -160,9 +160,35 @@ pnpm run test:cov
 
 ## 文档
 
+### API文档
 - 📘 [API完整文档](./API_DOCUMENTATION.md) - 所有API的详细说明
 - 📗 [使用示例](./USAGE_EXAMPLES.md) - 实际业务场景的完整代码示例
 - 📙 [TikTok Shop官方文档](https://partner.tiktokshop.com/docv2)
+
+### 测试工具文档
+- 🚀 [快速开始指南](./QUICK_START.md) - 5分钟快速上手测试工具 ⭐
+- 📊 [API版本分析](./API_VERSION_ANALYSIS.md) - 详细的API版本对比分析
+- 📝 [项目改动说明](./CHANGES.md) - HTML改造和功能实现说明
+- 📦 [功能特性说明](./test-api-features.md) - 新功能详细介绍
+- 📋 [项目总结](./PROJECT_SUMMARY.md) - 完整的项目改造总结
+
+### 测试页面
+- 🎯 [test-api.html](./test-api.html) - 完整的API测试工具(支持自动授权)
+- 🧪 [test-auth-flow.html](./test-auth-flow.html) - 授权流程测试页面
+
+## 新功能特性 ✨
+
+### 测试工具增强
+- ✅ **自动处理授权码** - URL包含code时自动换取Token
+- ✅ **LocalStorage持久化** - 所有认证信息自动保存
+- ✅ **状态自动恢复** - 页面刷新后无需重新授权
+- ✅ **数据管理功能** - 查看和清除存储的认证数据
+- ✅ **Token过期检查** - 提前5分钟提醒Token过期
+
+### API版本说明
+当前项目使用 **V202309** 版本的API,该版本功能最完整、最稳定。
+- ❌ 不建议升级到V202509(新版本功能反而更少)
+- ✅ 详见: [API_VERSION_ANALYSIS.md](./API_VERSION_ANALYSIS.md)
 
 ## License
 

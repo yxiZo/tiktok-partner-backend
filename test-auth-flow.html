@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>测试授权流程 - TikTok Shop</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        h1 {
+            color: #333;
+        }
+        .status {
+            padding: 10px;
+            border-radius: 4px;
+            margin: 10px 0;
+        }
+        .success {
+            background: #d4edda;
+            color: #155724;
+        }
+        .info {
+            background: #d1ecf1;
+            color: #0c5460;
+        }
+        button {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background: #5568d3;
+        }
+        input {
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            width: 100%;
+            margin: 5px 0;
+            box-sizing: border-box;
+        }
+        .log {
+            background: #2d3748;
+            color: #68d391;
+            padding: 15px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 12px;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h1>🧪 授权流程测试</h1>
+        <p>此页面用于测试自动处理授权码和localStorage存储功能</p>
+    </div>
+
+    <div class="card">
+        <h2>当前状态</h2>
+        <div id="status" class="status info">检查中...</div>
+    </div>
+
+    <div class="card">
+        <h2>测试功能</h2>
+        <button onclick="simulateAuthCallback()">模拟授权回调(?code=test_code_12345)</button>
+        <button onclick="showLocalStorage()">查看localStorage</button>
+        <button onclick="clearLocalStorage()">清除localStorage</button>
+        <button onclick="testTokenExpiry()">测试Token过期检查</button>
+    </div>
+
+    <div class="card">
+        <h2>手动测试</h2>
+        <input type="text" id="testCode" placeholder="输入测试授权码">
+        <button onclick="manualGetToken()">手动获取Token</button>
+    </div>
+
+    <div class="card">
+        <h2>日志</h2>
+        <div id="log" class="log">等待操作...</div>
+    </div>
+
+    <script>
+        const STORAGE_KEYS = {
+            ACCESS_TOKEN: 'tiktok_access_token',
+            REFRESH_TOKEN: 'tiktok_refresh_token',
+            TOKEN_EXPIRE_TIME: 'tiktok_token_expire_time',
+            AUTH_INFO: 'tiktok_auth_info'
+        };
+
+        function log(message) {
+            const logDiv = document.getElementById('log');
+            const timestamp = new Date().toLocaleTimeString();
+            logDiv.innerHTML += `[${timestamp}] ${message}\n`;
+            logDiv.scrollTop = logDiv.scrollHeight;
+            console.log(`[Test] ${message}`);
+        }
+
+        function updateStatus(message, type = 'info') {
+            const statusDiv = document.getElementById('status');
+            statusDiv.className = `status ${type}`;
+            statusDiv.textContent = message;
+        }
+
+        function checkUrlParams() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const code = urlParams.get('code');
+
+            if (code) {
+                log(`✅ 检测到URL中的code参数: ${code}`);
+                updateStatus(`检测到授权码: ${code}`, 'success');
+
+                // 模拟保存Token
+                simulateTokenSave(code);
+
+                // 清除URL参数
+                window.history.replaceState({}, document.title, window.location.pathname);
+                log('✅ 已清除URL中的code参数');
+            } else {
+                log('ℹ️ URL中没有code参数');
+                checkStoredToken();
+            }
+        }
+
+        function simulateTokenSave(code) {
+            // 模拟API响应
+            const mockTokenData = {
+                access_token: 'mock_access_token_' + Date.now(),
+                refresh_token: 'mock_refresh_token_' + Date.now(),
+                access_token_expire_in: 3600,
+                open_id: 'mock_open_id',
+                seller_name: '测试卖家',
+                seller_base_region: 'CN'
+            };
+
+            // 保存到localStorage
+            localStorage.setItem(STORAGE_KEYS.ACCESS_TOKEN, mockTokenData.access_token);
+            localStorage.setItem(STORAGE_KEYS.REFRESH_TOKEN, mockTokenData.refresh_token);
+            localStorage.setItem(STORAGE_KEYS.TOKEN_EXPIRE_TIME,
+                String(Math.floor(Date.now() / 1000) + mockTokenData.access_token_expire_in));
+
+            const authInfo = {
+                open_id: mockTokenData.open_id,
+                seller_name: mockTokenData.seller_name,
+                seller_base_region: mockTokenData.seller_base_region,
+                created_at: new Date().toISOString()
+            };
+            localStorage.setItem(STORAGE_KEYS.AUTH_INFO, JSON.stringify(authInfo));
+
+            log(`✅ Token已保存: ${mockTokenData.access_token.substring(0, 20)}...`);
+            log(`✅ Refresh Token已保存: ${mockTokenData.refresh_token.substring(0, 20)}...`);
+            log(`✅ Token将在 ${mockTokenData.access_token_expire_in} 秒后过期`);
+            updateStatus('✅ 授权成功! Token已保存', 'success');
+
+            // 显示认证信息
+            setTimeout(() => {
+                showStoredAuthInfo();
+            }, 500);
+        }
+
+        function checkStoredToken() {
+            const accessToken = localStorage.getItem(STORAGE_KEYS.ACCESS_TOKEN);
+            const authInfo = localStorage.getItem(STORAGE_KEYS.AUTH_INFO);
+
+            if (accessToken && authInfo) {
+                log('✅ 检测到已保存的Token');
+                log(`📦 Access Token: ${accessToken.substring(0, 20)}...`);
+
+                try {
+                    const info = JSON.parse(authInfo);
+                    log(`👤 卖家: ${info.seller_name}`);
+                    log(`🌍 地区: ${info.seller_base_region}`);
+                    updateStatus(`已登录: ${info.seller_name}`, 'success');
+                } catch (e) {
+                    log('❌ 解析认证信息失败');
+                    updateStatus('认证信息损坏', 'info');
+                }
+            } else {
+                log('ℹ️ 未检测到已保存的Token');
+                updateStatus('未授权', 'info');
+            }
+        }
+
+        function showStoredAuthInfo() {
+            const authInfo = localStorage.getItem(STORAGE_KEYS.AUTH_INFO);
+            if (authInfo) {
+                try {
+                    const info = JSON.parse(authInfo);
+                    log('📋 认证信息:');
+                    log(`  - 卖家名称: ${info.seller_name}`);
+                    log(`  - Open ID: ${info.open_id}`);
+                    log(`  - 地区: ${info.seller_base_region}`);
+                    log(`  - 创建时间: ${info.created_at}`);
+                } catch (e) {
+                    log('❌ 解析认证信息失败');
+                }
+            } else {
+                log('ℹ️ 没有存储的认证信息');
+            }
+        }
+
+        function simulateAuthCallback() {
+            const testCode = 'test_code_' + Date.now();
+            const newUrl = window.location.pathname + '?code=' + testCode;
+            window.location.href = newUrl;
+        }
+
+        function showLocalStorage() {
+            log('📦 localStorage内容:');
+            for (let i = 0; i < localStorage.length; i++) {
+                const key = localStorage.key(i);
+                if (key.startsWith('tiktok_')) {
+                    const value = localStorage.getItem(key);
+                    if (value.length > 50) {
+                        log(`  - ${key}: ${value.substring(0, 50)}...`);
+                    } else {
+                        log(`  - ${key}: ${value}`);
+                    }
+                }
+            }
+        }
+
+        function clearLocalStorage() {
+            if (confirm('确定要清除所有TikTok相关的localStorage数据吗?')) {
+                Object.values(STORAGE_KEYS).forEach(key => {
+                    localStorage.removeItem(key);
+                });
+                log('🗑️ 已清除所有认证数据');
+                updateStatus('已清除所有认证数据', 'info');
+            }
+        }
+
+        function testTokenExpiry() {
+            const expireTime = localStorage.getItem(STORAGE_KEYS.TOKEN_EXPIRE_TIME);
+            if (expireTime) {
+                const now = Math.floor(Date.now() / 1000);
+                const remaining = parseInt(expireTime) - now;
+                const minutes = Math.floor(remaining / 60);
+
+                if (remaining > 0) {
+                    log(`⏰ Token剩余有效时间: ${minutes} 分钟 (${remaining} 秒)`);
+                    updateStatus(`Token将在 ${minutes} 分钟后过期`, 'success');
+                } else {
+                    log('❌ Token已过期');
+                    updateStatus('Token已过期', 'info');
+                }
+            } else {
+                log('ℹ️ 没有Token过期时间信息');
+            }
+        }
+
+        function manualGetToken() {
+            const code = document.getElementById('testCode').value.trim();
+            if (code) {
+                log(`📝 手动输入授权码: ${code}`);
+                simulateTokenSave(code);
+            } else {
+                alert('请输入授权码');
+            }
+        }
+
+        // 页面加载时检查
+        document.addEventListener('DOMContentLoaded', function() {
+            log('🚀 页面加载完成');
+            checkUrlParams();
+        });
+
+        console.log('%c🧪 授权流程测试页面已就绪', 'font-size: 16px; color: #667eea; font-weight: bold;');
+        console.log('使用此页面测试:');
+        console.log('1. URL参数自动检测');
+        console.log('2. Token保存到localStorage');
+        console.log('3. Token过期检查');
+        console.log('4. 认证信息恢复');
+    </script>
+</body>
+</html>

@@ -211,11 +211,16 @@
             background: #2d3748;
             color: #68d391;
             border-radius: 10px;
-            max-height: 500px;
+            max-height: 400px;
             overflow-y: auto;
             font-family: 'Courier New', monospace;
             font-size: 13px;
             line-height: 1.6;
+            position: sticky;
+            top: 10px;
+            z-index: 100;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            border: 2px solid #4a5568;
         }
 
         .response-area::-webkit-scrollbar {
@@ -230,6 +235,30 @@
         .response-area::-webkit-scrollbar-thumb {
             background: #4a5568;
             border-radius: 10px;
+        }
+
+        .response-area::-webkit-scrollbar-thumb:hover {
+            background: #718096;
+        }
+
+        .tab-content {
+            display: none;
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            padding-bottom: 50px;
+        }
+
+        .response-sticky-wrapper {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: white;
+            padding: 15px;
+            margin: -25px -25px 20px -25px;
+            border-bottom: 3px solid #667eea;
+            border-radius: 15px 15px 0 0;
         }
 
         .status-badge {
@@ -338,7 +367,7 @@
             <div class="config-grid">
                 <div class="form-group">
                     <label>API Base URL</label>
-                    <input type="text" id="apiBaseUrl" value="http://localhost:3000" placeholder="http://localhost:3000">
+                    <input type="text" id="apiBaseUrl" value="http://192.168.5.153:3000" placeholder="http://192.168.5.153:3000">
                 </div>
                 <div class="form-group">
                     <label>Access Token</label>
@@ -348,6 +377,14 @@
                     <label>Shop Cipher</label>
                     <input type="text" id="shopCipher" placeholder="从店铺列表获取的cipher">
                 </div>
+            </div>
+            <div style="margin-top: 15px; display: flex; gap: 10px; flex-wrap: wrap;">
+                <button class="btn-secondary" onclick="showStoredAuthInfo()" style="font-size: 13px; padding: 8px 16px;">
+                    📦 查看存储的认证信息
+                </button>
+                <button class="btn-danger" onclick="clearStoredAuthData()" style="font-size: 13px; padding: 8px 16px;">
+                    🗑️ 清除所有认证数据
+                </button>
             </div>
         </div>
 
@@ -360,12 +397,18 @@
 
         <!-- 授权管理 Tab -->
         <div class="tab-content active" id="auth-tab">
+            <div class="response-sticky-wrapper">
+                <h3 style="margin: 0 0 15px 0; color: #667eea;">📡 API响应结果</h3>
+                <div class="response-area" id="auth-response">等待API响应...</div>
+            </div>
+
             <div class="info-box">
                 <h4>📌 使用说明</h4>
                 <p>1. 首先点击"获取授权链接"，复制链接在浏览器中打开<br>
                    2. 在TikTok授权页面完成授权<br>
                    3. 授权后会重定向回调URL，从URL参数中获取code<br>
-                   4. 将code粘贴到下方输入框，点击"获取Token"</p>
+                   4. 将code粘贴到下方输入框，点击"获取Token"<br>
+                   <strong style="color: #28a745;">✨ 新功能：如果授权回调URL指向本页面，会自动检测code并换取Token，无需手动复制粘贴！</strong></p>
             </div>
 
             <div class="api-section">
@@ -391,12 +434,15 @@
                     <button class="btn-warning" onclick="refreshToken()">刷新Token</button>
                 </div>
             </div>
-
-            <div class="response-area" id="auth-response">等待API响应...</div>
         </div>
 
         <!-- 店铺管理 Tab -->
         <div class="tab-content" id="shop-tab">
+            <div class="response-sticky-wrapper">
+                <h3 style="margin: 0 0 15px 0; color: #667eea;">📡 API响应结果</h3>
+                <div class="response-area" id="shop-response">等待API响应...</div>
+            </div>
+
             <div class="info-box">
                 <h4>📌 使用说明</h4>
                 <p>需要先获取Access Token。点击"获取已授权店铺"可以获取shop_cipher，这是后续产品API必需的参数。</p>
@@ -428,12 +474,15 @@
                     <button class="btn-primary" onclick="getWidgetToken()">获取Widget Token</button>
                 </div>
             </div>
-
-            <div class="response-area" id="shop-response">等待API响应...</div>
         </div>
 
         <!-- 产品管理 Tab -->
         <div class="tab-content" id="product-tab">
+            <div class="response-sticky-wrapper">
+                <h3 style="margin: 0 0 15px 0; color: #667eea;">📡 API响应结果</h3>
+                <div class="response-area" id="product-response">等待API响应...</div>
+            </div>
+
             <div class="info-box">
                 <h4>📌 使用说明</h4>
                 <p>需要先获取Access Token和Shop Cipher。所有产品相关操作都需要这两个参数。</p>
@@ -520,12 +569,15 @@
                     <button class="btn-primary" onclick="getBrands()">获取品牌列表</button>
                 </div>
             </div>
-
-            <div class="response-area" id="product-response">等待API响应...</div>
         </div>
 
         <!-- 订单管理 Tab -->
         <div class="tab-content" id="order-tab">
+            <div class="response-sticky-wrapper">
+                <h3 style="margin: 0 0 15px 0; color: #667eea;">📡 API响应结果</h3>
+                <div class="response-area" id="order-response">等待API响应...</div>
+            </div>
+
             <div class="info-box">
                 <h4>📌 使用说明</h4>
                 <p>需要先获取Access Token和Shop Cipher。可以按状态筛选订单或按时间范围查询。</p>
@@ -573,22 +625,182 @@
                     <button class="btn-primary" onclick="getRecentlyUpdatedOrders()">获取最近更新</button>
                 </div>
             </div>
-
-            <div class="response-area" id="order-response">等待API响应...</div>
         </div>
     </div>
 
     <script>
+        // ========== localStorage 管理工具 ==========
+        const STORAGE_KEYS = {
+            API_BASE_URL: 'tiktok_api_base_url',
+            ACCESS_TOKEN: 'tiktok_access_token',
+            REFRESH_TOKEN: 'tiktok_refresh_token',
+            SHOP_CIPHER: 'tiktok_shop_cipher',
+            TOKEN_EXPIRE_TIME: 'tiktok_token_expire_time',
+            AUTH_INFO: 'tiktok_auth_info'
+        };
+
+        // 保存到localStorage
+        function saveToLocalStorage(key, value) {
+            try {
+                localStorage.setItem(key, value);
+                console.log(`[Storage] Saved: ${key}`);
+            } catch (error) {
+                console.error('[Storage] Error saving:', key, error);
+            }
+        }
+
+        // 从localStorage读取
+        function loadFromLocalStorage(key, defaultValue = '') {
+            try {
+                return localStorage.getItem(key) || defaultValue;
+            } catch (error) {
+                console.error('[Storage] Error loading:', key, error);
+                return defaultValue;
+            }
+        }
+
+        // 从localStorage删除
+        function removeFromLocalStorage(key) {
+            try {
+                localStorage.removeItem(key);
+                console.log(`[Storage] Removed: ${key}`);
+            } catch (error) {
+                console.error('[Storage] Error removing:', key, error);
+            }
+        }
+
+        // 清除所有认证数据
+        function clearAuthData() {
+            Object.values(STORAGE_KEYS).forEach(key => {
+                if (key !== STORAGE_KEYS.API_BASE_URL) {
+                    removeFromLocalStorage(key);
+                }
+            });
+        }
+
+        // 保存完整的认证信息
+        function saveAuthInfo(authData) {
+            if (authData.access_token) {
+                saveToLocalStorage(STORAGE_KEYS.ACCESS_TOKEN, authData.access_token);
+            }
+            if (authData.refresh_token) {
+                saveToLocalStorage(STORAGE_KEYS.REFRESH_TOKEN, authData.refresh_token);
+            }
+            if (authData.access_token_expire_in) {
+                const expireTime = Math.floor(Date.now() / 1000) + authData.access_token_expire_in;
+                saveToLocalStorage(STORAGE_KEYS.TOKEN_EXPIRE_TIME, expireTime.toString());
+            }
+            if (authData.open_id || authData.seller_name) {
+                const authInfo = {
+                    open_id: authData.open_id || '',
+                    seller_name: authData.seller_name || '',
+                    seller_base_region: authData.seller_base_region || '',
+                    user_type: authData.user_type || 0,
+                    created_at: new Date().toISOString()
+                };
+                saveToLocalStorage(STORAGE_KEYS.AUTH_INFO, JSON.stringify(authInfo));
+            }
+        }
+
+        // 检查Token是否过期
+        function isTokenExpired() {
+            const expireTime = parseInt(loadFromLocalStorage(STORAGE_KEYS.TOKEN_EXPIRE_TIME, '0'));
+            if (!expireTime) return true;
+            const now = Math.floor(Date.now() / 1000);
+            // 提前5分钟判定为过期
+            return now >= expireTime - 300;
+        }
+
+        // 从表单和localStorage同步数据
+        function syncFormData() {
+            // API Base URL
+            const apiBaseUrl = document.getElementById('apiBaseUrl').value.trim();
+            if (apiBaseUrl) {
+                saveToLocalStorage(STORAGE_KEYS.API_BASE_URL, apiBaseUrl);
+            } else {
+                const storedApiUrl = loadFromLocalStorage(STORAGE_KEYS.API_BASE_URL, 'http://192.168.5.153:3000');
+                document.getElementById('apiBaseUrl').value = storedApiUrl;
+            }
+
+            // Access Token
+            const accessToken = document.getElementById('accessToken').value.trim();
+            if (accessToken) {
+                saveToLocalStorage(STORAGE_KEYS.ACCESS_TOKEN, accessToken);
+            } else {
+                const storedToken = loadFromLocalStorage(STORAGE_KEYS.ACCESS_TOKEN);
+                if (storedToken) {
+                    document.getElementById('accessToken').value = storedToken;
+                }
+            }
+
+            // Refresh Token
+            const refreshToken = document.getElementById('refreshToken').value.trim();
+            if (refreshToken) {
+                saveToLocalStorage(STORAGE_KEYS.REFRESH_TOKEN, refreshToken);
+            }
+
+            // Shop Cipher
+            const shopCipher = document.getElementById('shopCipher').value.trim();
+            if (shopCipher) {
+                saveToLocalStorage(STORAGE_KEYS.SHOP_CIPHER, shopCipher);
+            } else {
+                const storedCipher = loadFromLocalStorage(STORAGE_KEYS.SHOP_CIPHER);
+                if (storedCipher) {
+                    document.getElementById('shopCipher').value = storedCipher;
+                }
+            }
+        }
+
+        // 页面加载时恢复数据
+        function loadStoredData() {
+            const apiBaseUrl = loadFromLocalStorage(STORAGE_KEYS.API_BASE_URL, 'http://192.168.5.153:3000');
+            document.getElementById('apiBaseUrl').value = apiBaseUrl;
+
+            const accessToken = loadFromLocalStorage(STORAGE_KEYS.ACCESS_TOKEN);
+            if (accessToken) {
+                document.getElementById('accessToken').value = accessToken;
+            }
+
+            const refreshToken = loadFromLocalStorage(STORAGE_KEYS.REFRESH_TOKEN);
+            if (refreshToken) {
+                document.getElementById('refreshToken').value = refreshToken;
+            }
+
+            const shopCipher = loadFromLocalStorage(STORAGE_KEYS.SHOP_CIPHER);
+            if (shopCipher) {
+                document.getElementById('shopCipher').value = shopCipher;
+            }
+
+            // 检查Token状态
+            const authInfo = loadFromLocalStorage(STORAGE_KEYS.AUTH_INFO);
+            if (authInfo) {
+                try {
+                    const info = JSON.parse(authInfo);
+                    console.log('[Auth] Loaded auth info:', info);
+                    if (isTokenExpired()) {
+                        console.warn('[Auth] Token is expired, please refresh');
+                    } else {
+                        console.log('[Auth] Token is valid');
+                    }
+                } catch (error) {
+                    console.error('[Auth] Error parsing auth info:', error);
+                }
+            }
+        }
+
         // 工具函数
         function getBaseUrl() {
+            syncFormData();
             return document.getElementById('apiBaseUrl').value.trim() || 'http://localhost:3000';
         }
 
         function getAccessToken() {
+            syncFormData();
             return document.getElementById('accessToken').value.trim();
         }
 
         function getShopCipher() {
+            syncFormData();
             return document.getElementById('shopCipher').value.trim();
         }
 
@@ -627,6 +839,26 @@
             document.getElementById(tabName + '-tab').classList.add('active');
         }
 
+        // 检查URL中的code参数并自动处理
+        async function checkUrlCode() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const code = urlParams.get('code');
+
+            if (code) {
+                console.log('[Auth] Detected code in URL, automatically exchanging for token...');
+                showResponse('auth', {
+                    message: '🔄 检测到授权码，正在自动换取Token...',
+                    code: code.substring(0, 20) + '...'
+                });
+
+                // 自动调用getToken
+                await getTokenWithCode(code);
+
+                // 清除URL中的code参数
+                window.history.replaceState({}, document.title, window.location.pathname);
+            }
+        }
+
         // ========== 授权管理 ==========
         async function getAuthUrl() {
             const url = `${getBaseUrl()}/auth/authorization-url`;
@@ -649,8 +881,8 @@
             }
         }
 
-        async function getToken() {
-            const authCode = document.getElementById('authCode').value.trim();
+        // 使用授权码获取Token的通用函数
+        async function getTokenWithCode(authCode) {
             if (!authCode) {
                 alert('请输入授权码');
                 return;
@@ -660,19 +892,51 @@
             const { data, error } = await makeRequest(url);
 
             if (!error && data.data) {
-                // 自动填充token
+                // 保存完整的认证信息到localStorage
+                saveAuthInfo(data.data);
+
+                // 自动填充token到表单
                 document.getElementById('accessToken').value = data.data.access_token;
+                if (data.data.refresh_token) {
+                    document.getElementById('refreshToken').value = data.data.refresh_token;
+                }
+
                 showResponse('auth', {
                     ...data,
-                    message: '✅ Token已自动填充到配置区域'
+                    message: '✅ Token已自动获取并保存到本地存储',
+                    storage_info: {
+                        access_token_saved: true,
+                        refresh_token_saved: !!data.data.refresh_token,
+                        expires_in: data.data.access_token_expire_in + ' seconds'
+                    }
                 });
+
+                // 显示认证信息
+                if (data.data.seller_name || data.data.open_id) {
+                    console.log('[Auth] Authorization successful:', {
+                        seller_name: data.data.seller_name,
+                        open_id: data.data.open_id,
+                        region: data.data.seller_base_region
+                    });
+                }
             } else {
                 showResponse('auth', data, true);
             }
         }
 
+        async function getToken() {
+            const authCode = document.getElementById('authCode').value.trim();
+            await getTokenWithCode(authCode);
+        }
+
         async function refreshToken() {
-            const refreshToken = document.getElementById('refreshToken').value.trim();
+            let refreshToken = document.getElementById('refreshToken').value.trim();
+
+            // 如果表单中没有,尝试从localStorage获取
+            if (!refreshToken) {
+                refreshToken = loadFromLocalStorage(STORAGE_KEYS.REFRESH_TOKEN);
+            }
+
             if (!refreshToken) {
                 alert('请输入refresh_token');
                 return;
@@ -686,10 +950,23 @@
             });
 
             if (!error && data.data) {
+                // 保存新的token信息
+                saveAuthInfo(data.data);
+
+                // 更新表单
                 document.getElementById('accessToken').value = data.data.access_token;
+                if (data.data.refresh_token) {
+                    document.getElementById('refreshToken').value = data.data.refresh_token;
+                }
+
                 showResponse('auth', {
                     ...data,
-                    message: '✅ Token已刷新并自动填充'
+                    message: '✅ Token已刷新并保存到本地存储',
+                    storage_info: {
+                        new_access_token_saved: true,
+                        new_refresh_token_saved: !!data.data.refresh_token,
+                        expires_in: data.data.access_token_expire_in + ' seconds'
+                    }
                 });
             } else {
                 showResponse('auth', data, true);
@@ -710,11 +987,24 @@
             });
 
             if (!error && data.data && data.data.shops && data.data.shops.length > 0) {
+                const firstShop = data.data.shops[0];
+
+                // 保存shop_cipher到localStorage
+                saveToLocalStorage(STORAGE_KEYS.SHOP_CIPHER, firstShop.cipher);
+
                 // 自动填充第一个店铺的cipher
-                document.getElementById('shopCipher').value = data.data.shops[0].cipher;
+                document.getElementById('shopCipher').value = firstShop.cipher;
+
                 showResponse('shop', {
                     ...data,
-                    message: '✅ Shop Cipher已自动填充到配置区域'
+                    message: '✅ Shop Cipher已自动填充并保存到本地存储',
+                    shop_info: {
+                        shop_id: firstShop.id,
+                        shop_name: firstShop.name,
+                        shop_cipher: firstShop.cipher,
+                        region: firstShop.region,
+                        saved: true
+                    }
                 });
             } else {
                 showResponse('shop', data, error);
@@ -1085,9 +1375,84 @@
             showResponse('order', data, error);
         }
 
+        // 清除本地存储的认证数据
+        function clearStoredAuthData() {
+            if (confirm('确定要清除所有本地存储的认证数据吗？\n\n这将删除：\n- Access Token\n- Refresh Token\n- Shop Cipher\n- 认证信息')) {
+                clearAuthData();
+                // 清空表单
+                document.getElementById('accessToken').value = '';
+                document.getElementById('refreshToken').value = '';
+                document.getElementById('shopCipher').value = '';
+                console.log('[Storage] All auth data cleared');
+                alert('✅ 本地存储的认证数据已清除');
+            }
+        }
+
+        // 显示当前存储的认证信息
+        function showStoredAuthInfo() {
+            const authInfo = loadFromLocalStorage(STORAGE_KEYS.AUTH_INFO);
+            const accessToken = loadFromLocalStorage(STORAGE_KEYS.ACCESS_TOKEN);
+            const refreshToken = loadFromLocalStorage(STORAGE_KEYS.REFRESH_TOKEN);
+            const shopCipher = loadFromLocalStorage(STORAGE_KEYS.SHOP_CIPHER);
+            const expireTime = loadFromLocalStorage(STORAGE_KEYS.TOKEN_EXPIRE_TIME, '0');
+
+            let info = '📦 本地存储的认证信息：\n\n';
+
+            if (authInfo) {
+                try {
+                    const parsed = JSON.parse(authInfo);
+                    info += `👤 卖家名称: ${parsed.seller_name || 'N/A'}\n`;
+                    info += `🆔 Open ID: ${parsed.open_id || 'N/A'}\n`;
+                    info += `🌍 地区: ${parsed.seller_base_region || 'N/A'}\n`;
+                    info += `📅 创建时间: ${parsed.created_at || 'N/A'}\n\n`;
+                } catch (e) {
+                    console.error('Error parsing auth info:', e);
+                }
+            }
+
+            info += `🔑 Access Token: ${accessToken ? '✅ 已保存 (' + accessToken.substring(0, 20) + '...)' : '❌ 未保存'}\n`;
+            info += `🔄 Refresh Token: ${refreshToken ? '✅ 已保存 (' + refreshToken.substring(0, 20) + '...)' : '❌ 未保存'}\n`;
+            info += `🏪 Shop Cipher: ${shopCipher ? '✅ 已保存' : '❌ 未保存'}\n`;
+
+            if (expireTime !== '0') {
+                const now = Math.floor(Date.now() / 1000);
+                const remaining = parseInt(expireTime) - now;
+                const minutes = Math.floor(remaining / 60);
+                info += `⏰ Token过期时间: ${minutes > 0 ? minutes + ' 分钟后' : '已过期'}\n`;
+            }
+
+            console.log(info);
+            alert(info);
+        }
+
+        // ========== 页面初始化 ==========
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('[Init] Page loading, initializing...');
+
+            // 1. 加载存储的数据
+            loadStoredData();
+
+            // 2. 检查URL中是否有code参数
+            setTimeout(() => {
+                checkUrlCode();
+            }, 500);
+
+            console.log('[Init] Initialization complete');
+        });
+
         // 页面加载完成提示
         console.log('%c🚀 TikTok Shop API 测试工具已就绪！', 'font-size: 20px; color: #667eea; font-weight: bold;');
-        console.log('使用提示：\n1. 确保后端服务已启动 (pnpm run start:dev)\n2. 从授权流程开始获取Token\n3. 获取Shop Cipher后即可测试产品和订单API');
+        console.log('%c新增功能：', 'font-size: 16px; color: #28a745; font-weight: bold;');
+        console.log('✅ 自动检测并处理URL中的授权码');
+        console.log('✅ 所有认证信息自动保存到localStorage');
+        console.log('✅ 页面刷新后自动恢复认证信息');
+        console.log('✅ Shop Cipher自动保存');
+        console.log('\n使用提示：');
+        console.log('1. 确保后端服务已启动 (pnpm run start:dev)');
+        console.log('2. 从授权流程开始获取Token');
+        console.log('3. 认证信息会自动保存，下次打开页面自动加载');
+        console.log('4. 调用 clearStoredAuthData() 可清除所有存储的认证数据');
+        console.log('5. 调用 showStoredAuthInfo() 可查看当前存储的认证信息');
     </script>
 </body>
 </html>
