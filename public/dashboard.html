@@ -1,0 +1,1041 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TikTok Shop API 测试仪表板</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .header {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .header-left h1 {
+            color: #333;
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        .header-left p {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .auth-status {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .auth-item {
+            background: #f8f9fa;
+            padding: 10px 15px;
+            border-radius: 8px;
+            border-left: 4px solid #28a745;
+        }
+
+        .auth-item h4 {
+            color: #333;
+            font-size: 12px;
+            margin-bottom: 3px;
+        }
+
+        .auth-item p {
+            color: #666;
+            font-size: 11px;
+            word-break: break-all;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .tab {
+            background: white;
+            padding: 12px 24px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            font-weight: 500;
+            color: #555;
+        }
+
+        .tab:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+        }
+
+        .tab.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .tab-content {
+            display: none;
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.3s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .api-section {
+            margin-bottom: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border-left: 4px solid #667eea;
+        }
+
+        .api-section h3 {
+            color: #333;
+            font-size: 18px;
+            margin-bottom: 15px;
+        }
+
+        .api-section p {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        button {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+
+        .btn-success {
+            background: #28a745;
+            color: white;
+        }
+
+        .btn-danger {
+            background: #dc3545;
+            color: white;
+        }
+
+        .btn-warning {
+            background: #ffc107;
+            color: #333;
+        }
+
+        .response-area {
+            margin-top: 20px;
+            padding: 20px;
+            background: #2d3748;
+            color: #68d391;
+            border-radius: 10px;
+            max-height: 400px;
+            overflow-y: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            line-height: 1.6;
+            position: sticky;
+            top: 10px;
+            z-index: 100;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            border: 2px solid #4a5568;
+        }
+
+        .response-area::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .response-area::-webkit-scrollbar-track {
+            background: #1a202c;
+            border-radius: 10px;
+        }
+
+        .response-area::-webkit-scrollbar-thumb {
+            background: #4a5568;
+            border-radius: 10px;
+        }
+
+        .response-area::-webkit-scrollbar-thumb:hover {
+            background: #718096;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-left: 10px;
+        }
+
+        .status-success {
+            background: #c6f6d5;
+            color: #22543d;
+        }
+
+        .status-error {
+            background: #fed7d7;
+            color: #742a2a;
+        }
+
+        .status-info {
+            background: #bee3f8;
+            color: #2c5282;
+        }
+
+        .input-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .input-group input {
+            flex: 1;
+            padding: 10px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+
+        .input-group input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 14px;
+            font-family: inherit;
+            resize: vertical;
+            min-height: 150px;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .info-box {
+            background: #e6f2ff;
+            border-left: 4px solid #2196F3;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .info-box h4 {
+            color: #1565c0;
+            margin-bottom: 8px;
+        }
+
+        .info-box p {
+            color: #424242;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .config-form {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .config-form h3 {
+            color: #333;
+            font-size: 16px;
+            margin-bottom: 15px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            color: #555;
+            font-size: 14px;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .navigation {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .btn-restart {
+            background: #ffc107;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="header-left">
+                <h1>🚀 TikTok Shop API 测试仪表板</h1>
+                <p>快速测试所有TikTok Shop API接口</p>
+            </div>
+            <div class="auth-status">
+                <div class="auth-item">
+                    <h4>Access Token</h4>
+                    <p id="statusToken">未设置</p>
+                </div>
+                <div class="auth-item">
+                    <h4>Shop Cipher</h4>
+                    <p id="statusCipher">未设置</p>
+                </div>
+                <div class="auth-item">
+                    <h4>店铺名称</h4>
+                    <p id="statusShop">未设置</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="navigation">
+            <button class="btn btn-restart" onclick="restartAuth()">
+                🔄 重新授权
+            </button>
+        </div>
+
+        <div class="config-form">
+            <h3>⚙️ API 配置</h3>
+            <div class="form-group">
+                <label>API Base URL</label>
+                <input type="text" id="apiBaseUrl" value="http://192.168.5.153:3000">
+            </div>
+            <div class="form-group">
+                <label>Access Token (从URL参数获取)</label>
+                <input type="text" id="accessToken" readonly>
+            </div>
+            <div class="form-group">
+                <label>Shop Cipher (从URL参数获取)</label>
+                <input type="text" id="shopCipher" readonly>
+            </div>
+        </div>
+
+        <div class="tabs">
+            <div class="tab active" onclick="switchTab('shop')">🏪 店铺管理</div>
+            <div class="tab" onclick="switchTab('product')">📦 产品管理</div>
+            <div class="tab" onclick="switchTab('order')">📋 订单管理</div>
+        </div>
+
+        <!-- 店铺管理 Tab -->
+        <div class="tab-content active" id="shop-tab">
+            <div class="response-area" id="shop-response">等待API响应...</div>
+
+            <div class="api-section">
+                <h3>1. 获取已授权的店铺列表</h3>
+                <p>获取当前access_token授权的所有店铺</p>
+                <button class="btn-primary" onclick="getAuthorizedShops()">获取已授权店铺</button>
+            </div>
+
+            <div class="api-section">
+                <h3>2. 获取店铺详细信息</h3>
+                <p>获取店铺的详细信息和状态</p>
+                <button class="btn-primary" onclick="getShopDetails()">获取店铺详情</button>
+            </div>
+
+            <div class="api-section">
+                <h3>3. 获取店铺权限</h3>
+                <p>查看应用对店铺的权限列表</p>
+                <button class="btn-primary" onclick="getShopPermissions()">获取店铺权限</button>
+            </div>
+
+            <div class="api-section">
+                <h3>4. 获取Widget Token</h3>
+                <p>获取用于前端集成的Widget Token</p>
+                <div class="input-group">
+                    <input type="text" id="widgetShopId" placeholder="店铺ID（可选）">
+                    <button class="btn-primary" onclick="getWidgetToken()">获取Widget Token</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 产品管理 Tab -->
+        <div class="tab-content" id="product-tab">
+            <div class="response-area" id="product-response">等待API响应...</div>
+
+            <div class="info-box">
+                <h4>📌 使用说明</h4>
+                <p>需要先获取Access Token和Shop Cipher。所有产品相关操作都需要这两个参数。</p>
+            </div>
+
+            <div class="api-section">
+                <h3>1. 搜索产品</h3>
+                <p>根据条件搜索产品，支持分页和状态筛选</p>
+                <div class="button-group">
+                    <button class="btn-primary" onclick="searchProducts()">搜索所有产品</button>
+                    <button class="btn-success" onclick="searchProducts(4)">搜索已激活产品</button>
+                    <button class="btn-secondary" onclick="searchProducts(2)">搜索草稿产品</button>
+                </div>
+            </div>
+
+            <div class="api-section">
+                <h3>2. 获取产品详情</h3>
+                <p>根据产品ID获取详细信息</p>
+                <div class="input-group">
+                    <input type="text" id="productId" placeholder="输入产品ID">
+                    <button class="btn-primary" onclick="getProductDetail()">获取产品详情</button>
+                </div>
+            </div>
+
+            <div class="api-section">
+                <h3>3. 创建产品</h3>
+                <p>创建新产品（需要完整的产品数据JSON）</p>
+                <textarea id="createProductData" placeholder='输入产品JSON数据'></textarea>
+                <button class="btn-success" onclick="createProduct()">创建产品</button>
+            </div>
+
+            <div class="api-section">
+                <h3>4. 产品管理操作</h3>
+                <p>激活、停用、删除产品（输入产品ID，多个用逗号分隔）</p>
+                <div class="input-group">
+                    <input type="text" id="manageProductIds" placeholder="产品ID列表，例如：123,456,789">
+                </div>
+                <div class="button-group">
+                    <button class="btn-success" onclick="activateProducts()">激活产品（上架）</button>
+                    <button class="btn-warning" onclick="deactivateProducts()">停用产品（下架）</button>
+                    <button class="btn-danger" onclick="deleteProducts()">删除产品</button>
+                </div>
+            </div>
+
+            <div class="api-section">
+                <h3>5. 更新库存</h3>
+                <p>更新产品SKU的库存数量</p>
+                <div class="input-group">
+                    <input type="text" id="inventoryProductId" placeholder="产品ID">
+                    <input type="text" id="inventorySkuId" placeholder="SKU ID">
+                    <input type="number" id="inventoryStock" placeholder="库存数量">
+                    <button class="btn-primary" onclick="updateInventory()">更新库存</button>
+                </div>
+            </div>
+
+            <div class="api-section">
+                <h3>6. 更新价格</h3>
+                <p>更新产品SKU的价格</p>
+                <div class="input-group">
+                    <input type="text" id="priceProductId" placeholder="产品ID">
+                    <input type="text" id="priceSkuId" placeholder="SKU ID">
+                    <input type="text" id="priceAmount" placeholder="价格">
+                    <button class="btn-primary" onclick="updatePrice()">更新价格</button>
+                </div>
+            </div>
+
+            <div class="api-section">
+                <h3>7. 获取分类和品牌</h3>
+                <p>获取TikTok Shop的产品分类和品牌列表</p>
+                <div class="button-group">
+                    <button class="btn-primary" onclick="getCategories()">获取分类列表</button>
+                    <button class="btn-primary" onclick="getBrands()">获取品牌列表</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 订单管理 Tab -->
+        <div class="tab-content" id="order-tab">
+            <div class="response-area" id="order-response">等待API响应...</div>
+
+            <div class="info-box">
+                <h4>📌 使用说明</h4>
+                <p>需要先获取Access Token和Shop Cipher。可以按状态筛选订单或按时间范围查询。</p>
+            </div>
+
+            <div class="api-section">
+                <h3>1. 按状态获取订单</h3>
+                <p>快速获取特定状态的订单</p>
+                <div class="button-group">
+                    <button class="btn-warning" onclick="getPendingShipmentOrders()">待发货订单</button>
+                    <button class="btn-primary" onclick="getInTransitOrders()">运输中订单</button>
+                    <button class="btn-success" onclick="getCompletedOrders()">已完成订单</button>
+                </div>
+            </div>
+
+            <div class="api-section">
+                <h3>2. 获取订单详情</h3>
+                <p>根据订单ID获取详细信息</p>
+                <div class="input-group">
+                    <input type="text" id="orderId" placeholder="输入订单ID">
+                    <button class="btn-primary" onclick="getOrderDetail()">获取订单详情</button>
+                </div>
+            </div>
+
+            <div class="api-section">
+                <h3>3. 高级搜索订单</h3>
+                <p>使用完整的搜索条件查询订单</p>
+                <textarea id="orderSearchData" placeholder='输入搜索条件JSON'></textarea>
+                <button class="btn-primary" onclick="searchOrders()">搜索订单</button>
+            </div>
+
+            <div class="api-section">
+                <h3>4. 获取最近更新的订单</h3>
+                <p>获取最近N分钟内更新的订单</p>
+                <div class="input-group">
+                    <input type="number" id="recentMinutes" placeholder="分钟数" value="30">
+                    <button class="btn-primary" onclick="getRecentlyUpdatedOrders()">获取最近更新</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 从URL参数获取认证信息
+        function getUrlParams() {
+            const urlParams = new URLSearchParams(window.location.search);
+            return {
+                accessToken: urlParams.get('access_token'),
+                shopCipher: urlParams.get('shop_cipher'),
+                shopId: urlParams.get('shop_id'),
+                shopName: urlParams.get('shop_name'),
+                shopRegion: urlParams.get('shop_region')
+            };
+        }
+
+        // 更新状态显示
+        function updateStatusDisplay() {
+            const params = getUrlParams();
+
+            if (params.accessToken) {
+                const tokenPreview = params.accessToken.substring(0, 30) + '...';
+                document.getElementById('statusToken').textContent = tokenPreview;
+                document.getElementById('accessToken').value = params.accessToken;
+            }
+
+            if (params.shopCipher) {
+                const cipherPreview = params.shopCipher.substring(0, 30) + '...';
+                document.getElementById('statusCipher').textContent = cipherPreview;
+                document.getElementById('shopCipher').value = params.shopCipher;
+            }
+
+            if (params.shopName) {
+                document.getElementById('statusShop').textContent = params.shopName;
+            }
+        }
+
+        function getBaseUrl() {
+            return document.getElementById('apiBaseUrl').value.trim() || 'http://192.168.5.153:3000';
+        }
+
+        function getAccessToken() {
+            return document.getElementById('accessToken').value.trim();
+        }
+
+        function getShopCipher() {
+            return document.getElementById('shopCipher').value.trim();
+        }
+
+        function showResponse(tabId, data, error = false) {
+            const responseArea = document.getElementById(tabId + '-response');
+            const timestamp = new Date().toLocaleTimeString();
+            const statusClass = error ? 'status-error' : 'status-success';
+            const statusText = error ? 'ERROR' : 'SUCCESS';
+
+            responseArea.innerHTML = `
+                <div style="margin-bottom: 10px;">
+                    <span class="status-badge ${statusClass}">${statusText}</span>
+                    <span style="margin-left: 10px; color: #a0aec0;">${timestamp}</span>
+                </div>
+                <pre>${JSON.stringify(data, null, 2)}</pre>
+            `;
+        }
+
+        async function makeRequest(url, options = {}) {
+            try {
+                const response = await fetch(url, options);
+                const data = await response.json();
+                return { data, error: !response.ok };
+            } catch (error) {
+                return { data: { error: error.message }, error: true };
+            }
+        }
+
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+            event.target.classList.add('active');
+
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+            document.getElementById(tabName + '-tab').classList.add('active');
+        }
+
+        function restartAuth() {
+            if (confirm('确定要重新开始授权流程吗？当前认证信息将丢失。')) {
+                window.location.href = 'index.html';
+            }
+        }
+
+        // ========== 店铺管理 ==========
+        async function getAuthorizedShops() {
+            const token = getAccessToken();
+            if (!token) {
+                alert('请先完成授权流程');
+                return;
+            }
+
+            const url = `${getBaseUrl()}/shops/authorized`;
+            const { data, error } = await makeRequest(url, {
+                headers: { 'Authorization': `Bearer ${token}` }
+            });
+            showResponse('shop', data, error);
+        }
+
+        async function getShopDetails() {
+            const token = getAccessToken();
+            if (!token) {
+                alert('请先完成授权流程');
+                return;
+            }
+
+            const url = `${getBaseUrl()}/shops/details`;
+            const { data, error } = await makeRequest(url, {
+                headers: { 'Authorization': `Bearer ${token}` }
+            });
+            showResponse('shop', data, error);
+        }
+
+        async function getShopPermissions() {
+            const token = getAccessToken();
+            if (!token) {
+                alert('请先完成授权流程');
+                return;
+            }
+
+            const url = `${getBaseUrl()}/shops/permissions`;
+            const { data, error } = await makeRequest(url, {
+                headers: { 'Authorization': `Bearer ${token}` }
+            });
+            showResponse('shop', data, error);
+        }
+
+        async function getWidgetToken() {
+            const token = getAccessToken();
+            const shopId = document.getElementById('widgetShopId').value.trim();
+
+            if (!token) {
+                alert('请先完成授权流程');
+                return;
+            }
+
+            const url = `${getBaseUrl()}/shops/widget-token${shopId ? '?shop_id=' + shopId : ''}`;
+            const { data, error } = await makeRequest(url, {
+                headers: { 'Authorization': `Bearer ${token}` }
+            });
+            showResponse('shop', data, error);
+        }
+
+        // ========== 产品管理 ==========
+        async function searchProducts(status) {
+            const token = getAccessToken();
+            const cipher = getShopCipher();
+
+            if (!token || !cipher) {
+                alert('请先完成授权流程');
+                return;
+            }
+
+            const searchData = {
+                page_number: 1,
+                page_size: 20
+            };
+
+            if (status) {
+                searchData.search_status = status;
+            }
+
+            const url = `${getBaseUrl()}/products/search`;
+            const { data, error } = await makeRequest(url, {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'X-Shop-Cipher': cipher,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(searchData)
+            });
+            showResponse('product', data, error);
+        }
+
+        async function getProductDetail() {
+            const token = getAccessToken();
+            const cipher = getShopCipher();
+            const productId = document.getElementById('productId').value.trim();
+
+            if (!token || !cipher || !productId) {
+                alert('请先完成授权流程并输入产品ID');
+                return;
+            }
+
+            const url = `${getBaseUrl()}/products/${productId}`;
+            const { data, error } = await makeRequest(url, {
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'X-Shop-Cipher': cipher
+                }
+            });
+            showResponse('product', data, error);
+        }
+
+        async function createProduct() {
+            const token = getAccessToken();
+            const cipher = getShopCipher();
+            const productDataStr = document.getElementById('createProductData').value.trim();
+
+            if (!token || !cipher || !productDataStr) {
+                alert('请先完成授权流程并输入产品数据');
+                return;
+            }
+
+            let productData;
+            try {
+                productData = JSON.parse(productDataStr);
+            } catch (e) {
+                alert('产品数据JSON格式错误');
+                return;
+            }
+
+            const url = `${getBaseUrl()}/products`;
+            const { data, error } = await makeRequest(url, {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'X-Shop-Cipher': cipher,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(productData)
+            });
+            showResponse('product', data, error);
+        }
+
+        async function activateProducts() {
+            await manageProducts('activate');
+        }
+
+        async function deactivateProducts() {
+            await manageProducts('deactivate');
+        }
+
+        async function deleteProducts() {
+            if (!confirm('确定要删除这些产品吗？此操作不可恢复！')) {
+                return;
+            }
+            await manageProducts('delete');
+        }
+
+        async function manageProducts(action) {
+            const token = getAccessToken();
+            const cipher = getShopCipher();
+            const productIdsStr = document.getElementById('manageProductIds').value.trim();
+
+            if (!token || !cipher || !productIdsStr) {
+                alert('请先完成授权流程并输入产品ID');
+                return;
+            }
+
+            const productIds = productIdsStr.split(',').map(id => id.trim()).filter(id => id);
+
+            let url, method;
+            if (action === 'delete') {
+                url = `${getBaseUrl()}/products`;
+                method = 'DELETE';
+            } else {
+                url = `${getBaseUrl()}/products/${action}`;
+                method = 'POST';
+            }
+
+            const { data, error } = await makeRequest(url, {
+                method: method,
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'X-Shop-Cipher': cipher,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ product_ids: productIds })
+            });
+            showResponse('product', data, error);
+        }
+
+        async function updateInventory() {
+            const token = getAccessToken();
+            const cipher = getShopCipher();
+            const productId = document.getElementById('inventoryProductId').value.trim();
+            const skuId = document.getElementById('inventorySkuId').value.trim();
+            const stock = document.getElementById('inventoryStock').value.trim();
+
+            if (!token || !cipher || !productId || !skuId || !stock) {
+                alert('请先完成授权流程并填写所有字段');
+                return;
+            }
+
+            const url = `${getBaseUrl()}/products/${productId}/inventory`;
+            const { data, error } = await makeRequest(url, {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'X-Shop-Cipher': cipher,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    skus: [{ id: skuId, available_stock: parseInt(stock) }]
+                })
+            });
+            showResponse('product', data, error);
+        }
+
+        async function updatePrice() {
+            const token = getAccessToken();
+            const cipher = getShopCipher();
+            const productId = document.getElementById('priceProductId').value.trim();
+            const skuId = document.getElementById('priceSkuId').value.trim();
+            const amount = document.getElementById('priceAmount').value.trim();
+
+            if (!token || !cipher || !productId || !skuId || !amount) {
+                alert('请先完成授权流程并填写所有字段');
+                return;
+            }
+
+            const url = `${getBaseUrl()}/products/${productId}/price`;
+            const { data, error } = await makeRequest(url, {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'X-Shop-Cipher': cipher,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    skus: [{ id: skuId, price: { amount: amount, currency: 'USD' } }]
+                })
+            });
+            showResponse('product', data, error);
+        }
+
+        async function getCategories() {
+            const token = getAccessToken();
+            const cipher = getShopCipher();
+
+            if (!token || !cipher) {
+                alert('请先完成授权流程');
+                return;
+            }
+
+            const url = `${getBaseUrl()}/products/metadata/categories`;
+            const { data, error } = await makeRequest(url, {
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'X-Shop-Cipher': cipher
+                }
+            });
+            showResponse('product', data, error);
+        }
+
+        async function getBrands() {
+            const token = getAccessToken();
+            const cipher = getShopCipher();
+
+            if (!token || !cipher) {
+                alert('请先完成授权流程');
+                return;
+            }
+
+            const url = `${getBaseUrl()}/products/metadata/brands`;
+            const { data, error } = await makeRequest(url, {
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'X-Shop-Cipher': cipher
+                }
+            });
+            showResponse('product', data, error);
+        }
+
+        // ========== 订单管理 ==========
+        async function getPendingShipmentOrders() {
+            await getOrdersByStatus('pending-shipment');
+        }
+
+        async function getInTransitOrders() {
+            await getOrdersByStatus('in-transit');
+        }
+
+        async function getCompletedOrders() {
+            await getOrdersByStatus('completed');
+        }
+
+        async function getOrdersByStatus(status) {
+            const token = getAccessToken();
+            const cipher = getShopCipher();
+
+            if (!token || !cipher) {
+                alert('请先完成授权流程');
+                return;
+            }
+
+            const url = `${getBaseUrl()}/orders/status/${status}?page=1&page_size=20`;
+            const { data, error } = await makeRequest(url, {
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'X-Shop-Cipher': cipher
+                }
+            });
+            showResponse('order', data, error);
+        }
+
+        async function getOrderDetail() {
+            const token = getAccessToken();
+            const orderId = document.getElementById('orderId').value.trim();
+
+            if (!token || !orderId) {
+                alert('请先完成授权流程并输入订单ID');
+                return;
+            }
+
+            const url = `${getBaseUrl()}/orders/${orderId}`;
+            const { data, error } = await makeRequest(url, {
+                headers: { 'Authorization': `Bearer ${token}` }
+            });
+            showResponse('order', data, error);
+        }
+
+        async function searchOrders() {
+            const token = getAccessToken();
+            const searchDataStr = document.getElementById('orderSearchData').value.trim();
+
+            if (!token || !searchDataStr) {
+                alert('请先完成授权流程并输入搜索条件');
+                return;
+            }
+
+            let searchData;
+            try {
+                searchData = JSON.parse(searchDataStr);
+            } catch (e) {
+                alert('搜索条件JSON格式错误');
+                return;
+            }
+
+            const url = `${getBaseUrl()}/orders/search`;
+            const { data, error } = await makeRequest(url, {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(searchData)
+            });
+            showResponse('order', data, error);
+        }
+
+        async function getRecentlyUpdatedOrders() {
+            const token = getAccessToken();
+            const cipher = getShopCipher();
+            const minutes = document.getElementById('recentMinutes').value.trim() || '30';
+
+            if (!token || !cipher) {
+                alert('请先完成授权流程');
+                return;
+            }
+
+            const url = `${getBaseUrl()}/orders/filters/recently-updated?minutes=${minutes}`;
+            const { data, error } = await makeRequest(url, {
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'X-Shop-Cipher': cipher
+                }
+            });
+            showResponse('order', data, error);
+        }
+
+        // 页面加载时初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            updateStatusDisplay();
+
+            // 检查是否有必要的参数
+            const params = getUrlParams();
+            if (!params.accessToken || !params.shopCipher) {
+                alert('未检测到授权信息，请先完成授权流程');
+                setTimeout(() => {
+                    window.location.href = 'index.html';
+                }, 2000);
+            }
+        });
+    </script>
+</body>
+</html>

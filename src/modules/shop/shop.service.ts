@@ -26,13 +26,18 @@ export class ShopService {
         'application/json',
       );
 
-      if (result.body.code !== 0) {
+      // 解析响应体（如果是JSON字符串）
+      const responseBody = typeof result.body === 'string'
+        ? JSON.parse(result.body)
+        : result.body;
+
+      if (responseBody.code !== 0) {
         throw new BadRequestException(
-          result.body.message || 'Failed to get authorized shops',
+          responseBody.message || 'Failed to get authorized shops',
         );
       }
 
-      const shops = result.body.data?.shops || [];
+      const shops = responseBody.data?.shops || [];
       return shops.map((shop) => ({
         shop_id: shop.id || '',
         shop_name: shop.name || '',
@@ -67,13 +72,18 @@ export class ShopService {
         'application/json',
       );
 
-      if (result.body.code !== 0) {
+      // 解析响应体（如果是JSON字符串）
+      const responseBody = typeof result.body === 'string'
+        ? JSON.parse(result.body)
+        : result.body;
+
+      if (responseBody.code !== 0) {
         throw new BadRequestException(
-          result.body.message || 'Failed to get shop details',
+          responseBody.message || 'Failed to get shop details',
         );
       }
 
-      const shops = result.body.data?.shops || [];
+      const shops = responseBody.data?.shops || [];
       return shops.map((shop: any) => ({
         id: shop.id || '',
         name: shop.name || '',
@@ -108,13 +118,18 @@ export class ShopService {
         'application/json',
       );
 
-      if (result.body.code !== 0) {
+      // 解析响应体（如果是JSON字符串）
+      const responseBody = typeof result.body === 'string'
+        ? JSON.parse(result.body)
+        : result.body;
+
+      if (responseBody.code !== 0) {
         throw new BadRequestException(
-          result.body.message || 'Failed to get shop permissions',
+          responseBody.message || 'Failed to get shop permissions',
         );
       }
 
-      const permissions = result.body.data?.permissions || [];
+      const permissions = responseBody.data?.permissions || [];
       return permissions.map((perm: any) => ({
         permission: typeof perm === 'string' ? perm : perm.permission || '',
         granted: typeof perm === 'string' ? true : perm.granted !== false,
@@ -151,9 +166,14 @@ export class ShopService {
         'application/json',
       );
 
-      if (result.body.code !== 0) {
+      // 解析响应体（如果是JSON字符串）
+      const responseBody = typeof result.body === 'string'
+        ? JSON.parse(result.body)
+        : result.body;
+
+      if (responseBody.code !== 0) {
         throw new BadRequestException(
-          result.body.message || 'Failed to remove shop authorization',
+          responseBody.message || 'Failed to remove shop authorization',
         );
       }
 
@@ -186,13 +206,18 @@ export class ShopService {
         shopId ? parseInt(shopId) : undefined,
       );
 
-      if (result.body.code !== 0) {
+      // 解析响应体（如果是JSON字符串）
+      const responseBody = typeof result.body === 'string'
+        ? JSON.parse(result.body)
+        : result.body;
+
+      if (responseBody.code !== 0) {
         throw new BadRequestException(
-          result.body.message || 'Failed to get widget token',
+          responseBody.message || 'Failed to get widget token',
         );
       }
 
-      return result.body.data?.widgetToken?.token || '';
+      return responseBody.data?.widgetToken?.token || '';
     } catch (error) {
       if (error instanceof BadRequestException) {
         throw error;

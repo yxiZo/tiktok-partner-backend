@@ -45,8 +45,15 @@ export class AuthService {
       console.log('[Auth] Requesting access token with:', {
         authCode: authCode.substring(0, 10) + '...',
         appKey: appKey.substring(0, 6) + '...',
+        appKeyLength: appKey.length,
         hasAppSecret: !!appSecret,
+        appSecretLength: appSecret?.length,
       });
+
+      // 验证授权码格式（TikTok授权码通常是字符串）
+      if (typeof authCode !== 'string' || authCode.trim().length === 0) {
+        throw new BadRequestException('Invalid authorization code format');
+      }
 
       const result = await AccessTokenTool.getAccessToken(
         authCode,
@@ -54,19 +61,46 @@ export class AuthService {
         appSecret,
       );
 
+      // 解析响应体（如果是JSON字符串）
+      const responseBody = typeof result.body === 'string'
+        ? JSON.parse(result.body)
+        : result.body;
+
       console.log('[Auth] TikTok API response:', {
-        code: result.body.code,
-        message: result.body.message,
-        hasData: !!result.body.data,
+        code: responseBody.code,
+        message: responseBody.message,
+        hasData: !!responseBody.data,
+        responseData: responseBody.data ? {
+          hasAccessToken: !!responseBody.data.access_token,
+          hasRefreshToken: !!responseBody.data.refresh_token,
+          openId: responseBody.data.open_id,
+          sellerName: responseBody.data.seller_name,
+        } : null,
       });
 
-      if (result.body.code !== 0) {
-        throw new BadRequestException(
-          `TikTok API Error (${result.body.code}): ${result.body.message || 'Failed to get access token'}`,
-        );
+      if (responseBody.code !== 0) {
+        const errorMessage = `TikTok API Error (${responseBody.code}): ${responseBody.message || 'Failed to get access token'}`;
+
+        // 根据错误代码提供更具体的提示
+        let hint = '';
+        switch (responseBody.code) {
+          case 40001:
+            hint = '\n\n💡 提示：授权码无效或已过期。请重新获取授权码（每个授权码只能使用一次）';
+            break;
+          case 40002:
+            hint = '\n\n💡 提示：授权码已被使用。请重新获取新的授权码';
+            break;
+          case 10008:
+            hint = '\n\n💡 提示：App Key或App Secret配置错误';
+            break;
+          default:
+            hint = '\n\n💡 提示：请检查授权码是否完整复制，或尝试重新获取授权码';
+        }
+
+        throw new BadRequestException(errorMessage + hint);
       }
 
-      const tokenData = result.body.data;
+      const tokenData = responseBody.data;
 
       if (!tokenData) {
         throw new BadRequestException('No token data received from TikTok API');
@@ -119,13 +153,18 @@ export class AuthService {
         this.configService.get<string>('tiktok.appSecret'),
       );
 
-      if (result.body.code !== 0) {
+      // 解析响应体（如果是JSON字符串）
+      const responseBody = typeof result.body === 'string'
+        ? JSON.parse(result.body)
+        : result.body;
+
+      if (responseBody.code !== 0) {
         throw new BadRequestException(
-          result.body.message || 'Failed to refresh token',
+          responseBody.message || 'Failed to refresh token',
         );
       }
 
-      const tokenData = result.body.data;
+      const tokenData = responseBody.data;
 
       if (!tokenData) {
         throw new BadRequestException('No token data received');

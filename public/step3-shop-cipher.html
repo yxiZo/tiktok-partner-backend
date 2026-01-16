@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>步骤 3：获取店铺标识</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .header {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            margin-bottom: 20px;
+        }
+
+        .step-indicator {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .step-circle {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .step-text {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .header h1 {
+            color: #333;
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            color: #666;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        .card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            margin-bottom: 20px;
+        }
+
+        .card h2 {
+            color: #333;
+            font-size: 20px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .info-box {
+            background: #e6f2ff;
+            border-left: 4px solid #2196F3;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .info-box h4 {
+            color: #1565c0;
+            margin-bottom: 8px;
+            font-size: 16px;
+        }
+
+        .info-box p {
+            color: #424242;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+
+        .btn-success {
+            background: #28a745;
+            color: white;
+        }
+
+        .btn-full {
+            width: 100%;
+        }
+
+        .response-area {
+            margin-top: 20px;
+            padding: 20px;
+            background: #2d3748;
+            color: #68d391;
+            border-radius: 10px;
+            max-height: 400px;
+            overflow-y: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            line-height: 1.6;
+            display: none;
+        }
+
+        .response-area.show {
+            display: block;
+        }
+
+        .response-area::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .response-area::-webkit-scrollbar-track {
+            background: #1a202c;
+            border-radius: 10px;
+        }
+
+        .response-area::-webkit-scrollbar-thumb {
+            background: #4a5568;
+            border-radius: 10px;
+        }
+
+        .success-message {
+            background: #c6f6d5;
+            border-left: 4px solid #28a745;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .success-message.show {
+            display: block;
+        }
+
+        .success-message h4 {
+            color: #22543d;
+            margin-bottom: 8px;
+        }
+
+        .success-message p {
+            color: #22543d;
+            font-size: 14px;
+        }
+
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            color: #555;
+            font-size: 14px;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .form-group input[readonly] {
+            background: #f8f9fa;
+            cursor: not-allowed;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-left: 10px;
+        }
+
+        .status-success {
+            background: #c6f6d5;
+            color: #22543d;
+        }
+
+        .status-error {
+            background: #fed7d7;
+            color: #742a2a;
+        }
+
+        .status-info {
+            background: #bee3f8;
+            color: #2c5282;
+        }
+
+        .shop-list {
+            margin-top: 20px;
+        }
+
+        .shop-item {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            border: 2px solid #e0e0e0;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .shop-item:hover {
+            border-color: #667eea;
+            box-shadow: 0 4px 10px rgba(102, 126, 234, 0.2);
+        }
+
+        .shop-item.selected {
+            border-color: #28a745;
+            background: #c6f6d5;
+        }
+
+        .shop-item h4 {
+            color: #333;
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+
+        .shop-item p {
+            color: #666;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .shop-item .cipher {
+            font-family: 'Courier New', monospace;
+            background: white;
+            padding: 5px 10px;
+            border-radius: 4px;
+            margin-top: 5px;
+            word-break: break-all;
+        }
+
+        .completion-box {
+            background: #d4edda;
+            border: 2px solid #28a745;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .completion-box h3 {
+            color: #22543d;
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .completion-box p {
+            color: #22543d;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="step-indicator">
+                <div class="step-circle">3</div>
+                <div class="step-text">步骤 3 / 3</div>
+            </div>
+            <h1>🏪 获取店铺标识</h1>
+            <p>获取已授权店铺的cipher，这是产品API必需的参数</p>
+        </div>
+
+        <div class="card">
+            <h2>📋 访问令牌</h2>
+            <div class="form-group">
+                <label>Access Token (可手动修改)</label>
+                <input type="text" id="accessToken" placeholder="从上一步获取或手动输入">
+            </div>
+
+            <div class="form-group">
+                <label>API Base URL (可手动修改)</label>
+                <input type="text" id="apiBaseUrl" value="http://192.168.5.153:3000">
+            </div>
+
+            <div class="info-box">
+                <h4>📌 关于店铺标识 (Cipher)</h4>
+                <p>
+                    <strong>Shop Cipher</strong> 是调用产品和订单API的必需参数。<br>
+                    • 一个账号可以授权多个店铺<br>
+                    • 每个店铺都有唯一的cipher<br>
+                    • 选择正确的cipher来操作对应店铺的数据<br>
+                    • cipher会保存到本地，后续API调用会自动使用
+                </p>
+            </div>
+
+            <button class="btn btn-primary btn-full" onclick="getAuthorizedShops()">
+                获取已授权店铺列表
+            </button>
+
+            <div class="response-area" id="responseArea"></div>
+
+            <div id="shopListContainer" class="shop-list" style="display: none;">
+                <h3 style="color: #333; font-size: 18px; margin-bottom: 15px;">选择要操作的店铺：</h3>
+                <div id="shopList"></div>
+            </div>
+
+            <div class="success-message" id="successMessage">
+                <h4>✅ 店铺标识已选择</h4>
+                <p>现在可以进入API测试仪表板开始调用各种接口</p>
+            </div>
+
+            <div id="completionBox" style="display: none;">
+                <div class="completion-box">
+                    <h3>🎉 授权流程完成！</h3>
+                    <p>您已成功完成所有授权步骤，现在可以开始使用TikTok Shop API</p>
+                    <button class="btn btn-success btn-full pulse" onclick="goToDashboard()">
+                        进入 API 测试仪表板 →
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="navigation">
+            <button class="btn btn-secondary" onclick="goBack()">
+                ← 返回上一步
+            </button>
+            <button class="btn btn-success" id="nextBtn" onclick="goToDashboard()" disabled style="display: none;">
+                进入仪表板 →
+            </button>
+        </div>
+    </div>
+
+    <script>
+        function getBaseUrl() {
+            const storedUrl = localStorage.getItem('tiktok_api_base_url');
+            return storedUrl || 'http://192.168.5.153:3000';
+        }
+
+        function showResponse(data, error = false) {
+            const responseArea = document.getElementById('responseArea');
+            const timestamp = new Date().toLocaleTimeString();
+            const statusClass = error ? 'status-error' : 'status-success';
+            const statusText = error ? 'ERROR' : 'SUCCESS';
+
+            responseArea.innerHTML = `
+                <div style="margin-bottom: 10px;">
+                    <span class="status-badge ${statusClass}">${statusText}</span>
+                    <span style="margin-left: 10px; color: #a0aec0;">${timestamp}</span>
+                </div>
+                <pre>${JSON.stringify(data, null, 2)}</pre>
+            `;
+            responseArea.classList.add('show');
+        }
+
+        async function getAuthorizedShops() {
+            // 优先使用用户手动输入的access token
+            const manualToken = document.getElementById('accessToken').value.trim();
+
+            if (!manualToken) {
+                alert('未找到Access Token，请先完成步骤2或手动输入Access Token');
+                return;
+            }
+
+            const url = `${getBaseUrl()}/shops/authorized`;
+
+            try {
+                const response = await fetch(url, {
+                    headers: { 'Authorization': `Bearer ${manualToken}` }
+                });
+                const data = await response.json();
+
+                if (data.success && data.data && data.data.shops && data.data.shops.length > 0) {
+                    displayShopList(data.data.shops);
+                    showResponse({
+                        ...data,
+                        message: `✅ 找到 ${data.data.shops.length} 个授权店铺`
+                    });
+                } else {
+                    showResponse(data, true);
+                }
+            } catch (error) {
+                showResponse({ error: error.message }, true);
+            }
+        }
+
+        function displayShopList(shops) {
+            const container = document.getElementById('shopListContainer');
+            const list = document.getElementById('shopList');
+
+            list.innerHTML = '';
+
+            shops.forEach((shop, index) => {
+                const item = document.createElement('div');
+                item.className = 'shop-item';
+                item.innerHTML = `
+                    <h4>${shop.name || '未命名店铺'}</h4>
+                    <p><strong>店铺ID:</strong> ${shop.id}</p>
+                    <p><strong>地区:</strong> ${shop.region || 'N/A'}</p>
+                    <p><strong>状态:</strong> ${shop.status || 'N/A'}</p>
+                    <div class="cipher"><strong>Cipher:</strong> ${shop.cipher}</div>
+                `;
+                item.onclick = () => selectShop(shop, item);
+                list.appendChild(item);
+            });
+
+            container.style.display = 'block';
+        }
+
+        function selectShop(shop, element) {
+            // 移除其他选中状态
+            document.querySelectorAll('.shop-item').forEach(item => {
+                item.classList.remove('selected');
+            });
+
+            // 添加选中状态
+            element.classList.add('selected');
+
+            // 保存选中的店铺信息到全局变量
+            window.selectedShop = shop;
+
+            // 显示成功消息
+            document.getElementById('successMessage').classList.add('show');
+            document.getElementById('completionBox').style.display = 'block';
+
+            const nextBtn = document.getElementById('nextBtn');
+            nextBtn.disabled = false;
+            nextBtn.style.display = 'inline-block';
+
+            showResponse({
+                message: '✅ 已选择店铺',
+                shop: {
+                    id: shop.id,
+                    name: shop.name,
+                    cipher: shop.cipher,
+                    region: shop.region
+                }
+            });
+        }
+
+        function goBack() {
+            window.location.href = 'step2-access-token.html';
+        }
+
+        function goToDashboard() {
+            const shop = window.selectedShop;
+
+            if (!shop || !shop.cipher) {
+                alert('请先选择一个店铺');
+                return;
+            }
+
+            const accessToken = document.getElementById('accessToken').value;
+            const apiBaseUrl = document.getElementById('apiBaseUrl').value || 'http://192.168.5.153:3000';
+
+            // 构建URL参数
+            const params = new URLSearchParams({
+                access_token: accessToken,
+                shop_cipher: shop.cipher,
+                api_base_url: apiBaseUrl
+            });
+
+            if (shop.id) params.append('shop_id', shop.id);
+            if (shop.name) params.append('shop_name', shop.name);
+            if (shop.region) params.append('shop_region', shop.region);
+
+            window.location.href = `dashboard.html?${params.toString()}`;
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // 从URL参数获取access token和api base url（作为默认值）
+            const urlParams = new URLSearchParams(window.location.search);
+            const accessToken = urlParams.get('access_token');
+            const apiUrl = urlParams.get('api_base_url');
+
+            // 如果URL中有这些参数，填充到input作为默认值
+            // 但用户可以手动修改，手动输入的值优先级最高
+            if (accessToken) {
+                document.getElementById('accessToken').value = accessToken;
+            }
+            // 如果没有URL参数，不强制跳转，让用户手动输入
+
+            if (apiUrl) {
+                document.getElementById('apiBaseUrl').value = apiUrl;
+            }
+        });
+    </script>
+</body>
+</html>

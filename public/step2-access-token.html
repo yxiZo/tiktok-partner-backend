@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>步骤 2：换取访问令牌</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .header {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            margin-bottom: 20px;
+        }
+
+        .step-indicator {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .step-circle {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .step-text {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .header h1 {
+            color: #333;
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            color: #666;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        .card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            margin-bottom: 20px;
+        }
+
+        .card h2 {
+            color: #333;
+            font-size: 20px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .info-box {
+            background: #e6f2ff;
+            border-left: 4px solid #2196F3;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .info-box h4 {
+            color: #1565c0;
+            margin-bottom: 8px;
+            font-size: 16px;
+        }
+
+        .info-box p {
+            color: #424242;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+
+        .btn-success {
+            background: #28a745;
+            color: white;
+        }
+
+        .btn-full {
+            width: 100%;
+        }
+
+        .response-area {
+            margin-top: 20px;
+            padding: 20px;
+            background: #2d3748;
+            color: #68d391;
+            border-radius: 10px;
+            max-height: 400px;
+            overflow-y: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            line-height: 1.6;
+            display: none;
+        }
+
+        .response-area.show {
+            display: block;
+        }
+
+        .response-area::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .response-area::-webkit-scrollbar-track {
+            background: #1a202c;
+            border-radius: 10px;
+        }
+
+        .response-area::-webkit-scrollbar-thumb {
+            background: #4a5568;
+            border-radius: 10px;
+        }
+
+        .success-message {
+            background: #c6f6d5;
+            border-left: 4px solid #28a745;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .success-message.show {
+            display: block;
+        }
+
+        .success-message h4 {
+            color: #22543d;
+            margin-bottom: 8px;
+        }
+
+        .success-message p {
+            color: #22543d;
+            font-size: 14px;
+        }
+
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            color: #555;
+            font-size: 14px;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .form-group input[readonly] {
+            background: #f8f9fa;
+            cursor: not-allowed;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-left: 10px;
+        }
+
+        .status-success {
+            background: #c6f6d5;
+            color: #22543d;
+        }
+
+        .status-error {
+            background: #fed7d7;
+            color: #742a2a;
+        }
+
+        .status-info {
+            background: #bee3f8;
+            color: #2c5282;
+        }
+
+        .token-display {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+
+        .token-display h4 {
+            color: #333;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .token-display p {
+            color: #666;
+            font-size: 13px;
+            line-height: 1.6;
+            word-break: break-all;
+        }
+
+        .token-display .token-value {
+            background: white;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #e0e0e0;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            margin-top: 5px;
+            word-break: break-all;
+        }
+
+        .warning-box {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .warning-box h4 {
+            color: #856404;
+            margin-bottom: 8px;
+        }
+
+        .warning-box p {
+            color: #856404;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="step-indicator">
+                <div class="step-circle">2</div>
+                <div class="step-text">步骤 2 / 3</div>
+            </div>
+            <h1>🔑 换取访问令牌</h1>
+            <p>使用上一步获得的授权码换取access_token</p>
+        </div>
+
+        <div class="card">
+            <h2>📋 授权码信息</h2>
+            <div class="form-group">
+                <label>授权码 (Code)</label>
+                <input type="text" id="authCode" readonly placeholder="从上一步获取">
+            </div>
+
+            <div class="info-box">
+                <h4>📌 关于访问令牌</h4>
+                <p>
+                    <strong>Access Token</strong> 是调用TikTok Shop API的必需凭证。<br>
+                    • 有效期：<strong>7天</strong><br>
+                    • 过期后可使用 Refresh Token 刷新<br>
+                    • Token会自动保存到本地存储<br>
+                    • 下一步获取Shop Cipher需要使用此Token
+                </p>
+            </div>
+
+            <button class="btn btn-primary btn-full" onclick="getToken()">
+                换取访问令牌
+            </button>
+
+            <div class="response-area" id="responseArea"></div>
+
+            <div class="success-message" id="successMessage">
+                <h4>✅ 访问令牌获取成功</h4>
+                <p>Token已自动保存到本地存储，现在可以进入下一步获取店铺标识</p>
+            </div>
+        </div>
+
+        <div class="card" id="tokenInfoCard" style="display: none;">
+            <h2>💾 已保存的令牌信息</h2>
+
+            <div class="token-display">
+                <h4>Access Token</h4>
+                <div class="token-value" id="displayAccessToken"></div>
+            </div>
+
+            <div class="token-display" id="refreshTokenDisplay">
+                <h4>Refresh Token</h4>
+                <div class="token-value" id="displayRefreshToken"></div>
+            </div>
+
+            <div class="token-display">
+                <h4>过期时间</h4>
+                <p id="displayExpireTime"></p>
+            </div>
+
+            <div class="warning-box" id="warningBox" style="display: none;">
+                <h4>⚠️ Token即将过期</h4>
+                <p>建议使用 Refresh Token 刷新获取新的 Access Token</p>
+                <button class="btn btn-primary" style="margin-top: 10px;" onclick="refreshAccessToken()">
+                    刷新令牌
+                </button>
+            </div>
+        </div>
+
+        <div class="navigation">
+            <button class="btn btn-secondary" onclick="goBack()">
+                ← 返回上一步
+            </button>
+            <button class="btn btn-success" id="nextBtn" onclick="goNext()" disabled>
+                进入下一步 →
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // 从URL参数获取配置
+        let authCode = '';
+        let apiBaseUrl = 'http://192.168.5.153:3000';
+
+        function getBaseUrl() {
+            return apiBaseUrl;
+        }
+
+        function showResponse(data, error = false) {
+            const responseArea = document.getElementById('responseArea');
+            const timestamp = new Date().toLocaleTimeString();
+            const statusClass = error ? 'status-error' : 'status-success';
+            const statusText = error ? 'ERROR' : 'SUCCESS';
+
+            responseArea.innerHTML = `
+                <div style="margin-bottom: 10px;">
+                    <span class="status-badge ${statusClass}">${statusText}</span>
+                    <span style="margin-left: 10px; color: #a0aec0;">${timestamp}</span>
+                </div>
+                <pre>${JSON.stringify(data, null, 2)}</pre>
+            `;
+            responseArea.classList.add('show');
+        }
+
+        async function getToken() {
+            // 优先使用用户手动输入的授权码
+            const manualAuthCode = document.getElementById('authCode').value.trim();
+            const codeToUse = manualAuthCode || authCode;
+
+            if (!codeToUse) {
+                alert('未找到授权码，请先完成步骤1或手动输入授权码');
+                window.location.href = 'step1-auth-code.html';
+                return;
+            }
+
+            // 验证授权码格式
+            if (codeToUse.length < 10) {
+                alert('授权码格式不正确，请检查是否完整复制');
+                return;
+            }
+
+            const url = `${getBaseUrl()}/auth/callback?code=${codeToUse}`;
+
+            try {
+                const response = await fetch(url);
+                const data = await response.json();
+
+                if (data.success && data.data) {
+                    // 显示成功消息
+                    document.getElementById('successMessage').classList.add('show');
+                    document.getElementById('nextBtn').disabled = false;
+
+                    // 显示token信息
+                    displayTokenInfo(data.data);
+
+                    showResponse({
+                        ...data,
+                        message: '✅ 访问令牌获取成功'
+                    });
+                } else {
+                    showResponse(data, true);
+                }
+            } catch (error) {
+                showResponse({ error: error.message }, true);
+            }
+        }
+
+        function displayTokenInfo(tokenData) {
+            const card = document.getElementById('tokenInfoCard');
+            card.style.display = 'block';
+
+            // 保存access_token到全局变量，供下一步使用
+            window.currentAccessToken = tokenData.access_token;
+
+            // 显示在隐藏的input中，供goNext()函数使用
+            let tokenInput = document.getElementById('accessToken');
+            if (!tokenInput) {
+                tokenInput = document.createElement('input');
+                tokenInput.type = 'hidden';
+                tokenInput.id = 'accessToken';
+                document.body.appendChild(tokenInput);
+            }
+            tokenInput.value = tokenData.access_token;
+
+            document.getElementById('displayAccessToken').textContent =
+                tokenData.access_token.substring(0, 50) + '...';
+
+            if (tokenData.refresh_token) {
+                document.getElementById('refreshTokenDisplay').style.display = 'block';
+                document.getElementById('displayRefreshToken').textContent =
+                    tokenData.refresh_token.substring(0, 50) + '...';
+            }
+
+            if (tokenData.access_token_expire_in) {
+                const expireTime = Math.floor(Date.now() / 1000) + tokenData.access_token_expire_in;
+                const expireDate = new Date(expireTime * 1000);
+                document.getElementById('displayExpireTime').textContent =
+                    `${tokenData.access_token_expire_in}秒 (${expireDate.toLocaleString()})`;
+
+                // 检查是否即将过期（小于1天）
+                if (tokenData.access_token_expire_in < 86400) {
+                    document.getElementById('warningBox').style.display = 'block';
+                }
+            }
+
+            // 显示卖家信息
+            if (tokenData.seller_name || tokenData.open_id) {
+                const info = [];
+                if (tokenData.seller_name) info.push(`卖家: ${tokenData.seller_name}`);
+                if (tokenData.open_id) info.push(`Open ID: ${tokenData.open_id}`);
+                if (tokenData.seller_base_region) info.push(`地区: ${tokenData.seller_base_region}`);
+
+                if (info.length > 0) {
+                    const infoDiv = document.createElement('div');
+                    infoDiv.className = 'token-display';
+                    infoDiv.innerHTML = `
+                        <h4>授权信息</h4>
+                        <p>${info.join('<br>')}</p>
+                    `;
+                    card.appendChild(infoDiv);
+                }
+            }
+        }
+
+        async function refreshAccessToken() {
+            const refreshToken = localStorage.getItem('tiktok_refresh_token');
+
+            if (!refreshToken) {
+                alert('未找到Refresh Token');
+                return;
+            }
+
+            const url = `${getBaseUrl()}/auth/refresh`;
+
+            try {
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ refresh_token: refreshToken })
+                });
+                const data = await response.json();
+
+                if (data.success && data.data) {
+                    saveTokenInfo(data.data);
+                    displayTokenInfo(data.data);
+                    showResponse({
+                        ...data,
+                        message: '✅ 令牌刷新成功'
+                    });
+                } else {
+                    showResponse(data, true);
+                }
+            } catch (error) {
+                showResponse({ error: error.message }, true);
+            }
+        }
+
+        function goBack() {
+            window.location.href = 'step1-auth-code.html';
+        }
+
+        function goNext() {
+            const accessToken = document.getElementById('accessToken')?.value || '';
+            window.location.href = `step3-shop-cipher.html?access_token=${encodeURIComponent(accessToken)}&api_base_url=${encodeURIComponent(apiBaseUrl)}`;
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // 从URL参数获取auth_code和api_base_url
+            const urlParams = new URLSearchParams(window.location.search);
+            authCode = urlParams.get('auth_code');
+            apiBaseUrl = urlParams.get('api_base_url') || 'http://192.168.5.153:3000';
+
+            if (!authCode) {
+                alert('未找到授权码，请先完成步骤1');
+                window.location.href = 'step1-auth-code.html';
+                return;
+            }
+
+            // 显示授权码到input（但用户可以手动修改）
+            document.getElementById('authCode').value = authCode;
+        });
+    </script>
+</body>
+</html>

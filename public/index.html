@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TikTok Shop 授权流程</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            width: 100%;
+        }
+
+        .header {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            color: #333;
+            font-size: 36px;
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .header p {
+            color: #666;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        .progress-container {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            margin-bottom: 30px;
+        }
+
+        .progress-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .progress-header h2 {
+            color: #333;
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .progress-header p {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .steps {
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+            margin-bottom: 40px;
+        }
+
+        .steps::before {
+            content: '';
+            position: absolute;
+            top: 25px;
+            left: 50px;
+            right: 50px;
+            height: 4px;
+            background: #e0e0e0;
+            z-index: 1;
+        }
+
+        .step {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            flex: 1;
+        }
+
+        .step-circle {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: white;
+            border: 4px solid #e0e0e0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+            font-weight: bold;
+            font-size: 20px;
+            color: #999;
+            transition: all 0.3s;
+        }
+
+        .step.active .step-circle {
+            border-color: #667eea;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .step.completed .step-circle {
+            border-color: #28a745;
+            background: #28a745;
+            color: white;
+        }
+
+        .step-label {
+            font-size: 14px;
+            color: #666;
+            font-weight: 500;
+        }
+
+        .step.active .step-label {
+            color: #667eea;
+            font-weight: 600;
+        }
+
+        .step.completed .step-label {
+            color: #28a745;
+        }
+
+        .action-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .action-card {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 15px;
+            border-left: 5px solid #e0e0e0;
+            transition: all 0.3s;
+        }
+
+        .action-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .action-card.active {
+            border-left-color: #667eea;
+            background: white;
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.2);
+        }
+
+        .action-card.completed {
+            border-left-color: #28a745;
+        }
+
+        .action-card h3 {
+            color: #333;
+            font-size: 18px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .action-card p {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .status-pending {
+            background: #e0e0e0;
+            color: #666;
+        }
+
+        .status-active {
+            background: #e6f2ff;
+            color: #2196F3;
+        }
+
+        .status-completed {
+            background: #c6f6d5;
+            color: #22543d;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+
+        .btn-success {
+            background: #28a745;
+            color: white;
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .btn-full {
+            width: 100%;
+        }
+
+        .config-section {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+        }
+
+        .config-section h3 {
+            color: #333;
+            font-size: 16px;
+            margin-bottom: 15px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            color: #555;
+            font-size: 14px;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .info-box {
+            background: #e6f2ff;
+            border-left: 4px solid #2196F3;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .info-box h4 {
+            color: #1565c0;
+            margin-bottom: 8px;
+            font-size: 16px;
+        }
+
+        .info-box p {
+            color: #424242;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .success-box {
+            background: #c6f6d5;
+            border-left: 4px solid #28a745;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .success-box h4 {
+            color: #22543d;
+            margin-bottom: 8px;
+        }
+
+        .success-box p {
+            color: #22543d;
+            font-size: 14px;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚀 TikTok Shop API 授权工具</h1>
+            <p>按照以下步骤完成授权，即可开始使用TikTok Shop API</p>
+        </div>
+
+        <div class="progress-container">
+            <div class="progress-header">
+                <h2>授权流程进度</h2>
+                <p>请按顺序完成以下三个步骤</p>
+            </div>
+
+            <div class="steps">
+                <div class="step active" id="step1">
+                    <div class="step-circle">1</div>
+                    <div class="step-label">获取授权码</div>
+                </div>
+                <div class="step" id="step2">
+                    <div class="step-circle">2</div>
+                    <div class="step-label">换取访问令牌</div>
+                </div>
+                <div class="step" id="step3">
+                    <div class="step-circle">3</div>
+                    <div class="step-label">获取店铺标识</div>
+                </div>
+            </div>
+
+            <div class="action-cards">
+                <div class="action-card active" id="card1">
+                    <h3>
+                        <span>🔐</span>
+                        步骤 1：获取授权码
+                        <span class="status-badge status-active" id="status1">进行中</span>
+                    </h3>
+                    <p>生成TikTok Shop的OAuth授权链接，在浏览器中打开并完成授权</p>
+                    <button class="btn btn-primary btn-full" onclick="goToStep(1)">
+                        开始步骤 1
+                    </button>
+                </div>
+
+                <div class="action-card" id="card2">
+                    <h3>
+                        <span>🔑</span>
+                        步骤 2：换取访问令牌
+                        <span class="status-badge status-pending" id="status2">待完成</span>
+                    </h3>
+                    <p>使用授权码换取access_token，这是后续API调用的凭证</p>
+                    <button class="btn btn-secondary btn-full" onclick="goToStep(2)" disabled id="btn2">
+                        等待步骤1完成
+                    </button>
+                </div>
+
+                <div class="action-card" id="card3">
+                    <h3>
+                        <span>🏪</span>
+                        步骤 3：获取店铺标识
+                        <span class="status-badge status-pending" id="status3">待完成</span>
+                    </h3>
+                    <p>获取已授权店铺的cipher，这是产品API必需的参数</p>
+                    <button class="btn btn-secondary btn-full" onclick="goToStep(3)" disabled id="btn3">
+                        等待步骤2完成
+                    </button>
+                </div>
+            </div>
+
+            <div class="config-section" style="margin-top: 30px;">
+                <h3>⚙️ API 配置</h3>
+                <div class="form-group">
+                    <label>API Base URL</label>
+                    <input type="text" id="apiBaseUrl" value="http://192.168.5.153:3000" placeholder="http://192.168.5.153:3000">
+                </div>
+            </div>
+
+            <div id="completionMessage" style="display: none;">
+                <div class="success-box">
+                    <h4>🎉 恭喜！授权流程已完成</h4>
+                    <p>您已成功完成所有授权步骤，现在可以开始使用TikTok Shop API了</p>
+                </div>
+                <button class="btn btn-success btn-full pulse" onclick="goToDashboard()">
+                    进入 API 测试仪表板 →
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 检查localStorage中的授权状态
+        function checkAuthStatus() {
+            const hasAuthCode = localStorage.getItem('tiktok_auth_code');
+            const hasAccessToken = localStorage.getItem('tiktok_access_token');
+            const hasShopCipher = localStorage.getItem('tiktok_shop_cipher');
+
+            // 更新步骤1状态
+            if (hasAuthCode) {
+                markStepCompleted(1);
+                // 更新步骤2状态
+                if (hasAccessToken) {
+                    markStepCompleted(2);
+                    // 更新步骤3状态
+                    if (hasShopCipher) {
+                        markStepCompleted(3);
+                        showCompletionMessage();
+                    }
+                }
+            }
+
+            // 保存API配置
+            const apiBaseUrl = localStorage.getItem('tiktok_api_base_url');
+            if (apiBaseUrl) {
+                document.getElementById('apiBaseUrl').value = apiBaseUrl;
+            }
+
+            // 监听配置变化
+            document.getElementById('apiBaseUrl').addEventListener('change', function() {
+                localStorage.setItem('tiktok_api_base_url', this.value);
+            });
+        }
+
+        function markStepCompleted(stepNumber) {
+            // 移除当前激活状态
+            document.querySelectorAll('.step').forEach(step => {
+                step.classList.remove('active');
+            });
+
+            // 标记步骤为完成
+            const step = document.getElementById(`step${stepNumber}`);
+            step.classList.add('completed');
+            step.classList.remove('active');
+
+            // 更新卡片状态
+            const card = document.getElementById(`card${stepNumber}`);
+            card.classList.add('completed');
+            card.classList.remove('active');
+
+            const status = document.getElementById(`status${stepNumber}`);
+            status.textContent = '已完成';
+            status.className = 'status-badge status-completed';
+
+            // 激活下一步
+            if (stepNumber < 3) {
+                const nextStep = document.getElementById(`step${stepNumber + 1}`);
+                nextStep.classList.add('active');
+
+                const nextCard = document.getElementById(`card${stepNumber + 1}`);
+                nextCard.classList.add('active');
+
+                const nextStatus = document.getElementById(`status${stepNumber + 1}`);
+                nextStatus.textContent = '进行中';
+                nextStatus.className = 'status-badge status-active';
+
+                const nextBtn = document.getElementById(`btn${stepNumber + 1}`);
+                nextBtn.disabled = false;
+                nextBtn.className = 'btn btn-primary btn-full';
+                nextBtn.textContent = `开始步骤 ${stepNumber + 1}`;
+            }
+        }
+
+        function showCompletionMessage() {
+            document.getElementById('completionMessage').style.display = 'block';
+        }
+
+        function goToStep(stepNumber) {
+            // 保存当前API配置
+            localStorage.setItem('tiktok_api_base_url', document.getElementById('apiBaseUrl').value);
+
+            // 跳转到对应步骤页面
+            const pages = {
+                1: 'step1-auth-code.html',
+                2: 'step2-access-token.html',
+                3: 'step3-shop-cipher.html'
+            };
+
+            if (pages[stepNumber]) {
+                window.location.href = pages[stepNumber];
+            }
+        }
+
+        function goToDashboard() {
+            window.location.href = 'dashboard.html';
+        }
+
+        // 页面加载时检查状态
+        document.addEventListener('DOMContentLoaded', function() {
+            checkAuthStatus();
+        });
+    </script>
+</body>
+</html>

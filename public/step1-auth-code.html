@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>步骤 1：获取授权码</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .header {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            margin-bottom: 20px;
+        }
+
+        .step-indicator {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .step-circle {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .step-text {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .header h1 {
+            color: #333;
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            color: #666;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        .card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            margin-bottom: 20px;
+        }
+
+        .card h2 {
+            color: #333;
+            font-size: 20px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .info-box {
+            background: #e6f2ff;
+            border-left: 4px solid #2196F3;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .info-box h4 {
+            color: #1565c0;
+            margin-bottom: 8px;
+            font-size: 16px;
+        }
+
+        .info-box p {
+            color: #424242;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .info-box ol {
+            color: #424242;
+            font-size: 14px;
+            line-height: 1.8;
+            margin-left: 20px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+
+        .btn-success {
+            background: #28a745;
+            color: white;
+        }
+
+        .btn-full {
+            width: 100%;
+        }
+
+        .response-area {
+            margin-top: 20px;
+            padding: 20px;
+            background: #2d3748;
+            color: #68d391;
+            border-radius: 10px;
+            max-height: 400px;
+            overflow-y: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            line-height: 1.6;
+            display: none;
+        }
+
+        .response-area.show {
+            display: block;
+        }
+
+        .response-area::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .response-area::-webkit-scrollbar-track {
+            background: #1a202c;
+            border-radius: 10px;
+        }
+
+        .response-area::-webkit-scrollbar-thumb {
+            background: #4a5568;
+            border-radius: 10px;
+        }
+
+        .success-message {
+            background: #c6f6d5;
+            border-left: 4px solid #28a745;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .success-message.show {
+            display: block;
+        }
+
+        .success-message h4 {
+            color: #22543d;
+            margin-bottom: 8px;
+        }
+
+        .success-message p {
+            color: #22543d;
+            font-size: 14px;
+        }
+
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .loading {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border: 3px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s linear infinite;
+            margin-left: 10px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-left: 10px;
+        }
+
+        .status-success {
+            background: #c6f6d5;
+            color: #22543d;
+        }
+
+        .status-error {
+            background: #fed7d7;
+            color: #742a2a;
+        }
+
+        .status-info {
+            background: #bee3f8;
+            color: #2c5282;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="step-indicator">
+                <div class="step-circle">1</div>
+                <div class="step-text">步骤 1 / 3</div>
+            </div>
+            <h1>🔐 获取授权码</h1>
+            <p>首先获取TikTok Shop的OAuth授权链接，然后在浏览器中完成授权</p>
+        </div>
+
+        <div class="card">
+            <h2>📌 操作说明</h2>
+            <div class="info-box">
+                <h4>如何完成此步骤：</h4>
+                <ol>
+                    <li>点击下方"获取授权链接"按钮</li>
+                    <li>复制生成的授权链接</li>
+                    <li>在新浏览器窗口中打开链接</li>
+                    <li>登录TikTok账号并完成授权</li>
+                    <li>授权后，URL中会包含 <code style="background: #fff3cd; padding: 2px 6px; border-radius: 3px;">code</code> 参数</li>
+                    <li>复制 <code style="background: #fff3cd; padding: 2px 6px; border-radius: 3px;">code</code> 参数的值，用于下一步</li>
+                </ol>
+                <p style="margin-top: 10px; color: #28a745; font-weight: 600;">
+                    ✨ 提示：授权链接已自动复制到剪贴板！
+                </p>
+            </div>
+
+            <button class="btn btn-primary btn-full" onclick="getAuthUrl()">
+                获取授权链接
+            </button>
+
+            <div class="response-area" id="responseArea"></div>
+
+            <div class="success-message" id="successMessage">
+                <h4>✅ 授权链接已生成</h4>
+                <p>请按照上方说明完成授权，获得 <code>code</code> 参数后点击"下一步"按钮</p>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>📋 授权码输入</h2>
+            <p style="color: #666; font-size: 14px; margin-bottom: 15px;">
+                完成授权后，将获得的 <code>code</code> 参数粘贴到下方，然后点击"下一步"
+            </p>
+
+            <div style="margin-bottom: 15px;">
+                <label style="display: block; color: #555; font-size: 14px; margin-bottom: 5px; font-weight: 500;">
+                    授权码 (Code)
+                </label>
+                <input type="text" id="authCode" placeholder="粘贴授权码到这里"
+                    style="width: 100%; padding: 12px 15px; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 14px;">
+            </div>
+
+            <button class="btn btn-success btn-full" onclick="saveAndNext()">
+                保存并进入下一步 →
+            </button>
+        </div>
+
+        <div class="navigation">
+            <button class="btn btn-secondary" onclick="goBack()">
+                ← 返回主页
+            </button>
+        </div>
+    </div>
+
+    <script>
+        function getBaseUrl() {
+            const storedUrl = localStorage.getItem('tiktok_api_base_url');
+            return storedUrl || 'http://192.168.5.153:3000';
+        }
+
+        function showResponse(data, error = false) {
+            const responseArea = document.getElementById('responseArea');
+            const successMessage = document.getElementById('successMessage');
+            const timestamp = new Date().toLocaleTimeString();
+            const statusClass = error ? 'status-error' : 'status-success';
+            const statusText = error ? 'ERROR' : 'SUCCESS';
+
+            responseArea.innerHTML = `
+                <div style="margin-bottom: 10px;">
+                    <span class="status-badge ${statusClass}">${statusText}</span>
+                    <span style="margin-left: 10px; color: #a0aec0;">${timestamp}</span>
+                </div>
+                <pre>${JSON.stringify(data, null, 2)}</pre>
+            `;
+            responseArea.classList.add('show');
+
+            if (!error && data.data && data.data.authorization_url) {
+                successMessage.classList.add('show');
+            }
+        }
+
+        async function getAuthUrl() {
+            const url = `${getBaseUrl()}/auth/authorization-url`;
+
+            try {
+                const response = await fetch(url);
+                const data = await response.json();
+
+                if (data.success && data.data && data.data.authorization_url) {
+                    const authUrl = data.data.authorization_url;
+
+                    showResponse({
+                        ...data,
+                        message: '✅ 授权链接生成成功',
+                        authorization_url: authUrl
+                    });
+
+                    // 尝试自动复制到剪贴板（需要HTTPS或localhost）
+                    if (navigator.clipboard && navigator.clipboard.writeText) {
+                        try {
+                            await navigator.clipboard.writeText(authUrl);
+                            showResponse({
+                                message: '✅ 授权链接生成成功，已自动复制到剪贴板',
+                                authorization_url: authUrl
+                            });
+                        } catch (clipboardError) {
+                            console.log('Clipboard API failed, user needs to copy manually');
+                            showResponse({
+                                message: '✅ 授权链接生成成功，请手动复制下方链接',
+                                authorization_url: authUrl
+                            });
+                        }
+                    } else {
+                        // Clipboard API不可用，提示用户手动复制
+                        showResponse({
+                            message: '✅ 授权链接生成成功，请手动复制下方链接',
+                            authorization_url: authUrl,
+                            tip: '💡 提示：选中链接后按 Ctrl+C 复制'
+                        });
+                    }
+                } else {
+                    showResponse(data, true);
+                }
+            } catch (error) {
+                showResponse({ error: error.message }, true);
+            }
+        }
+
+        function saveAndNext() {
+            const authCode = document.getElementById('authCode').value.trim();
+
+            if (!authCode) {
+                alert('请输入授权码');
+                return;
+            }
+
+            // 获取API Base URL
+            const apiBaseUrl = document.getElementById('apiBaseUrl')?.value || 'http://192.168.5.153:3000';
+
+            // 跳转到下一步，通过URL参数传递auth_code
+            window.location.href = `step2-access-token.html?auth_code=${encodeURIComponent(authCode)}&api_base_url=${encodeURIComponent(apiBaseUrl)}`;
+        }
+
+        function goBack() {
+            window.location.href = 'index.html';
+        }
+
+        // 页面加载时检查URL参数
+        document.addEventListener('DOMContentLoaded', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const apiBaseUrl = urlParams.get('api_base_url');
+
+            if (apiBaseUrl) {
+                // 如果从index页面带过来API URL，保存到input
+                const apiInput = document.getElementById('apiBaseUrl');
+                if (apiInput) {
+                    apiInput.value = apiBaseUrl;
+                }
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,2 +1,1 @@
- API Get Conversation has been added. 
- API: Get Transactions by Order, Get Transactions by Statement, Get Unsettled Transactions has been upgraded. 
+ API: Search FBT Inventory, Search FBT Inventory Record, Search Goods Info has been upgraded. 
